@@ -50,14 +50,16 @@
   h1 span{color:var(--primary)}
   .header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
-  .icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);height:38px;padding:0 12px;border-radius:10px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:6px;font-family:inherit;font-weight:600;transition:.15s}
-  .icon-btn:hover{border-color:var(--primary);color:var(--primary)}
-  .icon-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-  .theme-switch{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
-  .theme-btn{background:none;border:none;padding:6px 9px;border-radius:7px;cursor:pointer;font-size:14px;line-height:1;transition:.15s;font-family:inherit}
-  .theme-btn:hover{background:var(--surface-3)}
-  .theme-btn.active{background:var(--primary);box-shadow:0 1px 4px rgba(99,102,241,.4)}
+  .user-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);height:40px;padding:0 12px 0 6px;border-radius:12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;transition:.15s;max-width:220px}
+  .user-btn:hover{border-color:var(--primary);box-shadow:0 2px 8px rgba(99,102,241,.1)}
+  .user-btn .u-avatar{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+  .user-btn .u-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px}
+  .user-btn .u-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-right:2px}
+  .user-btn .u-status.synced{background:var(--green)}
+  .user-btn .u-status.saving{background:var(--amber);animation:pulse 1.2s infinite}
+  .user-btn .u-status.error{background:var(--red)}
+  .user-btn .u-status.guest{background:var(--text-dim)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
   .year{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px}
   .year button{background:none;border:none;font-size:16px;cursor:pointer;padding:4px 10px;border-radius:6px;color:var(--text-muted);font-family:inherit}
@@ -70,6 +72,75 @@
   .tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;transition:.15s;font-family:inherit}
   .tab:hover{border-color:var(--primary)}
   .tab.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 8px rgba(99,102,241,.3)}
+
+  /* AUTH */
+  .auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .auth-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:20px;box-shadow:0 10px 40px rgba(99,102,241,.08);max-width:460px;width:100%;padding:32px 28px}
+  .auth-logo{font-size:30px;font-weight:800;color:var(--text);margin-bottom:6px;text-align:center}
+  .auth-logo span{color:var(--primary)}
+  .auth-sub{color:var(--text-dim);font-size:13px;margin-bottom:22px;text-align:center}
+  .auth-tabs{display:flex;background:var(--surface-3);border-radius:12px;padding:4px;margin-bottom:22px}
+  .auth-tab{flex:1;padding:10px;border-radius:9px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;transition:.15s}
+  .auth-tab.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+  .auth-form{display:flex;flex-direction:column;gap:14px;text-align:left}
+  .auth-form .field{margin-bottom:0}
+  .auth-form input{padding:12px 14px;font-size:14px}
+  .auth-form .row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:440px){.auth-form .row-2{grid-template-columns:1fr}}
+  .auth-submit{margin-top:4px;padding:13px;font-size:14px}
+
+  .pw-wrap{position:relative}
+  .pw-wrap input{padding-right:44px}
+  .pw-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-dim);padding:6px 8px;border-radius:6px;font-size:16px;line-height:1;font-family:inherit}
+  .pw-toggle:hover{color:var(--primary);background:var(--surface-3)}
+
+  .pw-requirements{display:flex;flex-direction:column;gap:5px;margin-top:8px;font-size:12px}
+  .pw-req{display:flex;align-items:center;gap:8px;color:var(--text-dim);transition:color .15s;padding-left:2px}
+  .pw-req .pw-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;font-size:10px;font-weight:700;border:1.5px solid var(--border);color:var(--text-dim);transition:.15s}
+  .pw-req.valid{color:var(--green)}
+  .pw-req.valid .pw-icon{background:var(--green);border-color:var(--green);color:#fff}
+  .pw-req.invalid{color:var(--red)}
+  .pw-req.invalid .pw-icon{background:transparent;border-color:var(--red);color:var(--red)}
+
+  .auth-msg{font-size:13px;padding:12px 14px;border-radius:10px;margin-top:14px;line-height:1.5;display:none}
+  .auth-msg.error{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);display:block}
+  .auth-msg.success{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2);display:block}
+  .auth-msg.info{background:rgba(99,102,241,.1);color:var(--primary);border:1px solid rgba(99,102,241,.2);display:block}
+
+  .auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0 16px;color:var(--text-dim);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+  .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+  .auth-guest{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:12px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;width:100%;transition:.15s}
+  .auth-guest:hover{border-color:var(--primary);color:var(--primary)}
+
+  .auth-warning{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.25);padding:12px 14px;border-radius:10px;font-size:12px;line-height:1.5;margin-bottom:16px;text-align:left}
+  .auth-warning code{background:rgba(245,158,11,.2);padding:1px 5px;border-radius:3px;font-size:11px}
+
+  .loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+  .loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-txt{color:var(--text-dim);font-size:13px}
+
+  /* PERIOD */
+  .period-panel{background:var(--surface);border:1px solid var(--border-soft);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .period-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .period-title{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:700}
+  .period-current{font-size:13px;color:var(--primary);font-weight:700;padding:5px 12px;border-radius:9px;background:rgba(99,102,241,.10);border:1px solid rgba(99,102,241,.15)}
+  .period-segments{display:flex;gap:4px;background:var(--surface-3);padding:4px;border-radius:12px}
+  .segment{flex:1;min-width:0;padding:9px 12px;border-radius:9px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s;white-space:nowrap}
+  .segment:hover{color:var(--text)}
+  .segment.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .segment .ico{font-size:15px;line-height:1}
+  .period-range-wrap{display:flex;gap:8px;align-items:center;padding-top:4px;flex-wrap:wrap}
+  .period-range-wrap input[type="month"]{flex:1;min-width:130px;padding:9px 12px;font-size:13px}
+  .period-range-arrow{color:var(--text-dim);font-size:14px;font-weight:600}
+  @media(max-width:540px){
+    .segment{padding:8px 4px;font-size:12px;gap:4px}
+    .segment .ico{font-size:14px}
+    .segment .lbl{display:none}
+    .segment .lbl-short{display:inline}
+  }
+  @media(min-width:541px){.segment .lbl-short{display:none}}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
   @media(max-width:640px){.cards{gap:8px}}
@@ -121,6 +192,7 @@
   }
   .field{display:flex;flex-direction:column;gap:4px}
   .field label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);font-weight:600;padding-left:2px}
+  .field label .opt{font-size:10px;color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0}
   input,select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--surface);color:var(--text);width:100%}
   input::placeholder{color:var(--text-dim)}
   input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.18)}
@@ -168,7 +240,7 @@
   .bc-bar{width:44%;max-width:18px;border-radius:4px 4px 0 0;min-height:2px;transition:height .3s}
   .bc-bar.inc{background:var(--green)}
   .bc-bar.exp{background:var(--red)}
-  .bc-lbl{font-size:11px;color:var(--text-dim);font-weight:600}
+  .bc-lbl{font-size:11px;color:var(--text-dim);font-weight:600;white-space:nowrap}
   .legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:var(--text-muted);margin-bottom:16px}
   .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 
@@ -186,21 +258,25 @@
   .toolbar button{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);padding:8px 14px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
   .toolbar button:hover{border-color:var(--primary);color:var(--primary)}
 
-  /* Loan panel sklopiv */
-  .loan-panel{background:linear-gradient(135deg,rgba(190,18,60,.05) 0%,var(--surface) 60%);border-color:rgba(190,18,60,.15)}
-  .loan-panel .loan-head{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;user-select:none;margin:0}
-  .loan-panel .loan-head h2{margin:0;color:var(--text-muted)}
-  .loan-panel.expanded .loan-head{margin-bottom:14px}
-  .loan-head .loan-summary{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--text-dim);font-weight:600}
-  .loan-head .loan-summary b{color:var(--rose);font-variant-numeric:tabular-nums}
+  .loan-panel{background:linear-gradient(135deg,rgba(190,18,60,.04) 0%,var(--surface) 60%);border-color:rgba(190,18,60,.15)}
+  .loan-cards{display:flex;flex-direction:column;gap:10px}
+  .loan-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:12px;transition:.15s;overflow:hidden}
+  .loan-card.expanded{border-color:rgba(190,18,60,.2);box-shadow:0 1px 6px rgba(190,18,60,.06)}
+  .loan-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:.15s}
+  .loan-card-head:hover{background:rgba(99,102,241,.03)}
+  [data-theme="dark"] .loan-card-head:hover{background:rgba(99,102,241,.06)}
+  .loan-card-head .lc-name{font-size:14px;font-weight:700;color:var(--text)}
+  .loan-card-head .lc-right{display:flex;align-items:center;gap:12px}
+  .loan-card-head .lc-summary{font-size:12px;color:var(--text-dim);font-weight:600}
+  .loan-card-head .lc-summary b{color:var(--rose);font-variant-numeric:tabular-nums}
+  .loan-card-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px}
+  .loan-card:not(.expanded) .loan-card-body{display:none}
+  .loan-card.expanded .collapse-arrow{transform:rotate(0deg)}
+  .loan-card:not(.expanded) .collapse-arrow{transform:rotate(-90deg)}
+  @media(max-width:540px){.loan-card-head .lc-summary{display:none}}
   .collapse-arrow{font-size:11px;color:var(--text-dim);transition:transform .2s;display:inline-block;padding:4px 6px;border-radius:6px;background:var(--surface-3)}
-  .loan-panel.expanded .collapse-arrow{transform:rotate(0deg)}
-  .loan-panel:not(.expanded) .collapse-arrow{transform:rotate(-90deg)}
-  .loan-head:hover .collapse-arrow{background:var(--surface-2);color:var(--primary)}
-  .loan-body{overflow:hidden;transition:max-height .25s ease}
-  .loan-panel:not(.expanded) .loan-body{display:none}
+  .loan-card-head:hover .collapse-arrow{background:var(--surface-2);color:var(--primary)}
 
-  /* Loan stats panel (Pregled) */
   .loan-stats-panel{background:linear-gradient(135deg,rgba(190,18,60,.04) 0%,var(--surface) 60%);border-color:rgba(190,18,60,.15)}
   .loan-stats-panel h2{color:var(--text-muted)}
 
@@ -218,6 +294,15 @@
   .loan-auto-info{background:rgba(99,102,241,.08);color:var(--text-muted);font-size:12px;padding:10px 12px;border-radius:9px;flex:1;min-width:200px;text-align:center;font-weight:600;border:1px solid rgba(99,102,241,.18);display:flex;align-items:center;justify-content:center;gap:6px}
   .loan-auto-info b{color:var(--primary);font-variant-numeric:tabular-nums}
 
+  .per-loan-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .lsr-row{display:flex;align-items:center;gap:10px;font-size:13px;padding:8px 10px;background:var(--surface-2);border-radius:9px}
+  .lsr-name{font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lsr-bar{flex:1.5;height:7px;background:var(--surface-3);border-radius:4px;overflow:hidden;min-width:60px}
+  .lsr-fill{height:100%;background:linear-gradient(90deg,var(--green),#22c55e);border-radius:4px}
+  .lsr-pct{font-size:11px;font-weight:700;color:var(--green);min-width:32px;text-align:right}
+  .lsr-remaining{font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums;font-size:12px;min-width:70px;text-align:right}
+  @media(max-width:540px){.lsr-row{flex-wrap:wrap}.lsr-bar{order:3;flex-basis:100%}}
+
   .sub-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
   .sub-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--surface-2);border-radius:10px;border:1px solid var(--border-soft)}
   .sub-item.off{opacity:.5}
@@ -230,6 +315,14 @@
   .sub-item .toggle-btn{background:none;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;font-size:11px;font-weight:700;padding:4px 9px;border-radius:6px;font-family:inherit;text-transform:uppercase;letter-spacing:.03em}
   .sub-item .toggle-btn.on{background:var(--green);color:#fff;border-color:var(--green)}
 
+  .loan-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:10px;border:1px solid var(--border-soft);margin-bottom:6px}
+  .loan-item .li-info{flex:1;min-width:0}
+  .loan-item .li-name{font-size:14px;font-weight:700}
+  .loan-item .li-meta{font-size:11px;color:var(--text-dim);margin-top:2px}
+  .loan-item .li-flag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+  .loan-item .li-flag.on{background:rgba(16,185,129,.15);color:var(--green)}
+  .loan-item .li-flag.off{background:var(--surface-3);color:var(--text-dim)}
+
   .grid-form{display:grid;grid-template-columns:1fr 130px 1fr 1fr 1fr auto;gap:8px;align-items:end}
   @media(max-width:900px){.grid-form{grid-template-columns:1fr 1fr;gap:8px}
     .grid-form .f-wide{grid-column:1/-1}
@@ -239,6 +332,32 @@
   .danger-zone{border-color:rgba(239,68,68,.3);background:linear-gradient(135deg,rgba(239,68,68,.05) 0%,var(--surface) 60%)}
   .danger-zone h2{color:var(--red)}
 
+  /* SETTINGS specifično */
+  .settings-account{display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface-2);border-radius:12px;margin-bottom:14px}
+  .settings-account .sa-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0}
+  .settings-account .sa-info{flex:1;min-width:0}
+  .settings-account .sa-name{font-size:16px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .settings-account .sa-meta{font-size:12px;color:var(--text-dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .settings-account .sa-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 9px;border-radius:6px;white-space:nowrap}
+  .settings-account .sa-badge.pro{background:rgba(16,185,129,.15);color:var(--green)}
+  .settings-account .sa-badge.guest{background:var(--surface-3);color:var(--text-dim)}
+
+  .settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-soft);flex-wrap:wrap}
+  .settings-row:last-child{border-bottom:none;padding-bottom:0}
+  .settings-row:first-of-type{padding-top:0}
+  .settings-row .sr-label{font-size:13px;font-weight:600;color:var(--text)}
+  .settings-row .sr-desc{font-size:11px;color:var(--text-dim);margin-top:2px;font-weight:400}
+  .settings-row .sr-ctrl{flex-shrink:0}
+
+  .theme-seg{display:flex;gap:3px;background:var(--surface-3);padding:3px;border-radius:10px}
+  .theme-seg button{padding:7px 12px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;transition:.15s}
+  .theme-seg button:hover{color:var(--text)}
+  .theme-seg button.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  @media(max-width:500px){.theme-seg button .lbl{display:none}}
+
+  .lang-select{padding:8px 12px;border-radius:9px;border:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer}
+  .lang-select:disabled{opacity:.6;cursor:not-allowed}
+
   .watermark{text-align:center;padding:32px 16px 20px;color:var(--text-dim);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.65}
   .watermark .diamond{color:var(--primary);margin:0 10px;font-size:10px;opacity:.7}
 
@@ -247,22 +366,120 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<!-- LOADING -->
+<div id="loadingScreen" class="loading-screen" style="display:none">
+  <div class="loading-spinner"></div>
+  <div class="loading-txt">Učitavam...</div>
+</div>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen" class="auth-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo">💰 Moje <span>financije</span></div>
+    <div class="auth-sub">Pristupi svojim podacima s bilo kojeg uređaja</div>
+
+    <div id="cloudWarning" class="auth-warning" style="display:none">
+      <b>⚠️ Cloud nije konfiguriran.</b><br>
+      Otvori HTML datoteku i zamijeni <code>SUPABASE_URL</code> i <code>SUPABASE_ANON_KEY</code> svojim vrijednostima. Do tada možeš koristiti app kao gost.
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-authtab="login" onclick="switchAuthTab('login')">Prijava</button>
+      <button class="auth-tab" data-authtab="register" onclick="switchAuthTab('register')">Registracija</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Lozinka</label>
+        <div class="pw-wrap">
+          <input type="password" name="password" placeholder="Tvoja lozinka" required autocomplete="current-password" id="loginPw">
+          <button type="button" class="pw-toggle" onclick="togglePw('loginPw', this)" title="Prikaži lozinku">👁</button>
+        </div>
+      </div>
+      <button type="submit" class="btn-add auth-submit">Prijavi se</button>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)" style="display:none">
+      <div class="auth-form row-2">
+        <div class="field">
+          <label>Ime <span class="opt">(opcionalno)</span></label>
+          <input type="text" name="firstName" placeholder="Marko" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label>Prezime <span class="opt">(opcionalno)</span></label>
+          <input type="text" name="lastName" placeholder="Horvat" autocomplete="family-name">
+        </div>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Lozinka</label>
+        <div class="pw-wrap">
+          <input type="password" name="password" placeholder="Najmanje 8 znakova" required autocomplete="new-password" id="regPw" oninput="updatePwReqs(this.value)" minlength="8">
+          <button type="button" class="pw-toggle" onclick="togglePw('regPw', this)" title="Prikaži lozinku">👁</button>
+        </div>
+        <div class="pw-requirements">
+          <div class="pw-req" data-req="length"><span class="pw-icon">·</span><span>Najmanje 8 znakova</span></div>
+          <div class="pw-req" data-req="letter"><span class="pw-icon">·</span><span>Sadrži slovo</span></div>
+          <div class="pw-req" data-req="number"><span class="pw-icon">·</span><span>Sadrži broj</span></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Potvrdi lozinku</label>
+        <div class="pw-wrap">
+          <input type="password" name="password2" placeholder="Ponovi lozinku" required autocomplete="new-password" id="regPw2" oninput="updatePwMatch()">
+          <button type="button" class="pw-toggle" onclick="togglePw('regPw2', this)" title="Prikaži lozinku">👁</button>
+        </div>
+        <div class="pw-requirements">
+          <div class="pw-req" data-req="match"><span class="pw-icon">·</span><span>Lozinke se podudaraju</span></div>
+        </div>
+      </div>
+      <div class="auth-form row-2">
+        <div class="field">
+          <label>Datum rođenja <span class="opt">(opcionalno)</span></label>
+          <input type="date" name="birthDate" autocomplete="bday">
+        </div>
+        <div class="field">
+          <label>Telefon <span class="opt">(opcionalno)</span></label>
+          <input type="tel" name="phone" placeholder="+385 91 123 4567" autocomplete="tel">
+        </div>
+      </div>
+      <button type="submit" class="btn-add auth-submit">Registriraj se</button>
+    </form>
+
+    <div class="auth-msg" id="authMsg"></div>
+
+    <div class="auth-divider">ili</div>
+
+    <button class="auth-guest" onclick="continueAsGuest()">Nastavi kao gost →</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appWrap" class="wrap" style="display:none">
 
   <header>
     <h1>💰 Moje <span>financije</span></h1>
     <div class="header-right">
-      <button class="icon-btn" id="moreBtn" onclick="go('settings')" title="Više">⚙️ Više</button>
-      <div class="theme-switch" title="Tema prikaza">
-        <button class="theme-btn" data-t="light"  onclick="setTheme('light')"  title="Svijetla tema">☀️</button>
-        <button class="theme-btn" data-t="dark"   onclick="setTheme('dark')"   title="Tamna tema">🌙</button>
-        <button class="theme-btn" data-t="system" onclick="setTheme('system')" title="Prema sustavu">🌗</button>
-      </div>
-      <div class="year">
+      <div class="year" id="yearWrap">
         <button onclick="changeYear(-1)">‹</button>
         <b id="yearLbl">2026</b>
         <button onclick="changeYear(1)">›</button>
       </div>
+      <button class="user-btn" onclick="go('settings')" title="Postavke">
+        <span class="u-avatar" id="uAvatar">G</span>
+        <span class="u-name" id="uName">Gost</span>
+        <span class="u-status guest" id="uStatus"></span>
+      </button>
     </div>
   </header>
 
@@ -275,8 +492,17 @@
 
 </div>
 
+<!-- SUPABASE SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-/* ================= KONFIGURACIJA ================= */
+/* =========================================================
+   SUPABASE KONFIGURACIJA — zamijeni svojim vrijednostima
+   ========================================================= */
+const SUPABASE_URL = 'https://vnglhkhpyoxyctyfhdst.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZuZ2xoa2hweW94eWN0eWZoZHN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MTYxMTQsImV4cCI6MjEwNjE5MjExNH0.zPVh77JoVJ4v8wcFWtWW5KP0POp0AKo-R0MB021rY1Y';
+
+/* ================= KONSTANTE ================= */
 const MONTHS = ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'];
 const SHORT  = ['Sij','Vel','Ožu','Tra','Svi','Lip','Srp','Kol','Ruj','Lis','Stu','Pro'];
 const CATS = {
@@ -291,22 +517,38 @@ const COLORS = {
 const SAVINGS_CAT = 'Štednja';
 const LOAN_CAT = 'Kredit';
 const FREQ_LBL = {1:'Svaki mjesec',2:'Svaka 2 mj.',3:'Kvartalno (3 mj)',6:'Polugodišnje (6 mj)',12:'Godišnje'};
+const LS_KEY = 'financije_v1';
+const LOANS_UI_KEY = 'financije_loans_ui';
+const THEME_KEY = 'financije_theme';
+const GUEST_KEY = 'financije_guest_mode';
+
+/* ================= GLOBALNO STANJE ================= */
+let sbClient = null;
+let currentUser = null;
+let isGuestMode = false;
+let isCloudConfigured = false;
+let syncStatus = 'idle';
+let saveTimer = null;
+let lastCloudSave = 0;
+let isHydrating = false;
+
+let state = { year: new Date().getFullYear(), txns: {}, subscriptions: [], loans: [], period: { mode: 'year' } };
+let currentView = 'pregled';
+let formType = 'rashod';
 
 /* ================= TEMA ================= */
-const THEME_KEY = 'financije_theme';
 let themePref = localStorage.getItem(THEME_KEY) || 'system';
-
 function applyTheme(){
   const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const dark = themePref === 'dark' || (themePref === 'system' && sysDark);
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', dark ? '#0f1115' : '#f4f6fb');
-  document.querySelectorAll('.theme-btn').forEach(b=>{
+  document.querySelectorAll('.theme-seg button').forEach(b=>{
     b.classList.toggle('active', b.dataset.t === themePref);
   });
 }
-function setTheme(t){ themePref = t; localStorage.setItem(THEME_KEY, t); applyTheme(); }
+function setTheme(t){ themePref = t; localStorage.setItem(THEME_KEY, t); applyTheme(); if(currentView === 'settings') render(); }
 try{
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ()=>{
     if(themePref === 'system') applyTheme();
@@ -314,34 +556,366 @@ try{
 }catch(e){}
 
 /* ================= STANJE ================= */
-const LS_KEY = 'financije_v1';
-const LOAN_UI_KEY = 'financije_loan_collapsed';
+function defaultState(){ return { year: new Date().getFullYear(), txns: {}, subscriptions: [], loans: [], period: { mode: 'year' } }; }
 
-let state = { year: new Date().getFullYear(), txns: {}, subscriptions: [], loan: null };
-let currentView = 'pregled';
-let formType = 'rashod';
-
-function load(){
+function loadLocal(){
   try{
     const raw = localStorage.getItem(LS_KEY);
-    if(raw){
-      const d = JSON.parse(raw);
-      state = Object.assign({year:new Date().getFullYear(), txns:{}, subscriptions:[], loan:null}, d);
+    if(raw){ const d = JSON.parse(raw); state = Object.assign(defaultState(), d); }
+    else { state = defaultState(); }
+  }catch(e){ console.warn(e); state = defaultState(); }
+
+  if(state.loan && !state.loans){
+    const newId = 'loan_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
+    const migrated = Object.assign({ id: newId }, state.loan);
+    state.loans = [migrated];
+    delete state.loan;
+    for(const key in state.txns){
+      for(const t of state.txns[key]) if(t.loanId === 'main') t.loanId = newId;
     }
-  }catch(e){ console.warn(e); }
-  if(state.loan && !state.loan.nextPaymentDate && state.loan.startDate){
-    state.loan.nextPaymentDate = state.loan.startDate;
+  }
+  if(!state.loans) state.loans = [];
+  if(!state.period) state.period = { mode: 'year' };
+  state.loans.forEach((l, i) => { if(!l.id) l.id = 'loan_' + i + '_' + Date.now(); });
+}
+
+function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){ console.warn(e); } }
+function save(){ saveLocal(); scheduleCloudSave(); }
+
+/* ================= SUPABASE ================= */
+function initSupabase(){
+  const url = SUPABASE_URL;
+  const key = SUPABASE_ANON_KEY;
+  if(!url || !key || url.includes('OVDJE') || key.includes('OVDJE')){
+    isCloudConfigured = false;
+    return null;
+  }
+  try{
+    isCloudConfigured = true;
+    return window.supabase.createClient(url, key, {
+      auth: { persistSession: true, autoRefreshToken: true }
+    });
+  }catch(e){
+    console.error('Supabase init failed', e);
+    isCloudConfigured = false;
+    return null;
   }
 }
-function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
 
-function isLoanCollapsed(){
-  const v = localStorage.getItem(LOAN_UI_KEY);
-  return v === null ? true : v === '1';
+/* ================= CLOUD SYNC ================= */
+async function loadFromCloud(){
+  if(!currentUser || !sbClient) return false;
+  try{
+    isHydrating = true;
+    const { data, error } = await sbClient.from('user_data').select('data, updated_at').eq('user_id', currentUser.id).maybeSingle();
+    if(error && error.code !== 'PGRST116') throw error;
+    if(data && data.data && Object.keys(data.data).length){
+      state = Object.assign(defaultState(), data.data);
+      if(!state.loans) state.loans = [];
+      if(!state.period) state.period = { mode: 'year' };
+      saveLocal();
+      isHydrating = false;
+      return true;
+    }
+    isHydrating = false;
+    return false;
+  }catch(e){
+    console.error('Cloud load error', e);
+    isHydrating = false;
+    return false;
+  }
 }
-function toggleLoanPanel(){
-  localStorage.setItem(LOAN_UI_KEY, isLoanCollapsed() ? '0' : '1');
+
+function scheduleCloudSave(){
+  if(!currentUser || !sbClient || isHydrating) return;
+  syncStatus = 'saving';
+  updateUserBadge();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { saveToCloud(); }, 1200);
+}
+
+async function saveToCloud(){
+  if(!currentUser || !sbClient) return;
+  try{
+    const { error } = await sbClient.from('user_data').upsert({
+      user_id: currentUser.id,
+      data: state,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'user_id' });
+    if(error) throw error;
+    syncStatus = 'synced';
+    lastCloudSave = Date.now();
+    updateUserBadge();
+  }catch(e){
+    console.error('Cloud save error', e);
+    syncStatus = 'error';
+    updateUserBadge();
+  }
+}
+
+async function forceSyncNow(){
+  if(!currentUser){ alert('Kao gost ne možeš sinkronizirati. Registriraj se ili prijavi.'); return; }
+  if(!sbClient){ alert('Cloud nije konfiguriran.'); return; }
+  syncStatus = 'saving'; updateUserBadge();
+  await saveToCloud();
+  await loadFromCloud();
+  ensureLoanPayments();
   render();
+  updateUserBadge();
+  alert('Sinkronizacija završena.');
+}
+
+/* ================= AUTH ================= */
+function switchAuthTab(tab){
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.toggle('active', b.dataset.authtab === tab));
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'flex' : 'none';
+  document.getElementById('registerForm').style.display = tab === 'register' ? 'flex' : 'none';
+  const msg = document.getElementById('authMsg');
+  msg.className = 'auth-msg';
+  msg.textContent = '';
+}
+
+function authMsg(text, type){
+  const msg = document.getElementById('authMsg');
+  msg.textContent = text;
+  msg.className = 'auth-msg ' + (type || 'error');
+}
+
+function togglePw(id, btn){
+  const inp = document.getElementById(id);
+  if(inp.type === 'password'){ inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁'; }
+}
+
+function validatePw(pw){
+  return {
+    length: pw.length >= 8,
+    letter: /[a-zA-Z]/.test(pw),
+    number: /\d/.test(pw)
+  };
+}
+
+function updatePwReqs(pw){
+  const v = validatePw(pw);
+  document.querySelectorAll('#registerForm .pw-req[data-req]').forEach(el => {
+    const key = el.dataset.req;
+    if(key === 'match') return;
+    el.classList.remove('valid', 'invalid');
+    if(pw.length === 0) return;
+    if(v[key]) el.classList.add('valid');
+    else el.classList.add('invalid');
+  });
+  updatePwMatch();
+}
+
+function updatePwMatch(){
+  const pw = document.getElementById('regPw').value;
+  const pw2 = document.getElementById('regPw2').value;
+  const el = document.querySelector('#registerForm .pw-req[data-req="match"]');
+  if(!el) return;
+  el.classList.remove('valid', 'invalid');
+  if(pw2.length === 0) return;
+  if(pw === pw2 && pw.length > 0) el.classList.add('valid');
+  else el.classList.add('invalid');
+}
+
+function withTimeout(promise, ms){
+  ms = ms || 15000;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms))
+  ]);
+}
+
+function translateAuthError(err){
+  const m = ((err && err.message) || String(err)).toLowerCase();
+  if(m.includes('invalid login')) return 'Pogrešan email ili lozinka.';
+  if(m.includes('email not confirmed')) return 'Email nije potvrđen. Provjeri inbox (ili isključi potvrdu u Supabase postavkama).';
+  if(m.includes('already registered') || m.includes('already exists') || m.includes('user already')) return 'Ovaj email je već registriran. Prijavi se.';
+  if(m.includes('password should be at least')) return 'Lozinka je prekratka.';
+  if(m.includes('rate limit') || m.includes('for security purposes')) return 'Previše pokušaja. Pričekaj minutu pa pokušaj ponovno.';
+  if(m.includes('timeout')) return 'Server ne odgovara. Provjeri internet vezu.';
+  if(m.includes('failed to fetch') || m.includes('networkerror')) return 'Nema veze sa serverom. Provjeri internet ili je projekt možda pauziran u Supabaseu.';
+  return (err && err.message) || 'Nepoznata greška.';
+}
+
+async function handleLogin(e){
+  e.preventDefault();
+  if(!sbClient){ authMsg('Cloud nije konfiguriran. Koristi gost mode.', 'error'); return; }
+  const f = e.target;
+  const email = f.email.value.trim();
+  const password = f.password.value;
+  const btn = f.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'Prijavljujem...';
+  try{
+    const result = await withTimeout(sbClient.auth.signInWithPassword({ email, password }));
+    if(result.error) throw result.error;
+    currentUser = result.data.user;
+    localStorage.removeItem(GUEST_KEY);
+    isGuestMode = false;
+    await loadFromCloud();
+    authMsg('Dobrodošao natrag!', 'success');
+    setTimeout(startApp, 400);
+  }catch(err){
+    console.error('Login error:', err);
+    authMsg(translateAuthError(err), 'error');
+    btn.disabled = false; btn.textContent = 'Prijavi se';
+  }
+}
+
+async function handleRegister(e){
+  e.preventDefault();
+  if(!sbClient){ authMsg('Cloud nije konfiguriran. Koristi gost mode.', 'error'); return; }
+  const f = e.target;
+  const firstName = f.firstName.value.trim();
+  const lastName = f.lastName.value.trim();
+  const email = f.email.value.trim();
+  const password = f.password.value;
+  const password2 = f.password2.value;
+  const birthDate = f.birthDate.value;
+  const phone = f.phone.value.trim();
+
+  if(password !== password2){ authMsg('Lozinke se ne podudaraju.', 'error'); return; }
+  const pv = validatePw(password);
+  if(!pv.length || !pv.letter || !pv.number){ authMsg('Lozinka ne zadovoljava sve uvjete.', 'error'); return; }
+
+  const hasLocal = Object.keys(state.txns || {}).length > 0;
+  let shouldMigrate = false;
+  if(hasLocal){
+    shouldMigrate = confirm('Imaš lokalne podatke na ovom uređaju.\n\nŽeliš li ih prenijeti u svoj novi profil?\n\nOK = prenesi\nCancel = kreni od nule');
+  }
+
+  const btn = f.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'Registriram...';
+
+  try{
+    const result = await withTimeout(sbClient.auth.signUp({
+      email, password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          full_name: (firstName + ' ' + lastName).trim(),
+          birth_date: birthDate,
+          phone: phone
+        }
+      }
+    }));
+    if(result.error) throw result.error;
+
+    const hasSession = result.data.session && result.data.user;
+
+    if(hasSession){
+      currentUser = result.data.user;
+      localStorage.removeItem(GUEST_KEY);
+      isGuestMode = false;
+      if(!shouldMigrate){
+        state = defaultState();
+        saveLocal();
+      }
+      await saveToCloud();
+      authMsg('Uspješno! Prijavljen si.', 'success');
+      setTimeout(startApp, 400);
+    } else if(result.data.user){
+      authMsg('Registracija uspješna! 📧 Provjeri email i klikni link za potvrdu, zatim se vrati i prijavi se.\n\n💡 Savjet: u Supabase dashboardu možeš isključiti potvrdu emaila za brže testiranje.', 'info');
+      btn.disabled = false; btn.textContent = 'Registriraj se';
+    } else {
+      authMsg('Nešto je pošlo po zlu. Pokušaj ponovno.', 'error');
+      btn.disabled = false; btn.textContent = 'Registriraj se';
+    }
+  }catch(err){
+    console.error('Register error:', err);
+    authMsg(translateAuthError(err), 'error');
+    btn.disabled = false; btn.textContent = 'Registriraj se';
+  }
+}
+
+function continueAsGuest(){
+  isGuestMode = true;
+  currentUser = null;
+  localStorage.setItem(GUEST_KEY, '1');
+  loadLocal();
+  startApp();
+}
+
+async function handleLogout(){
+  if(isGuestMode || !currentUser){
+    if(!confirm('Izlaz iz gost moda?\n\nPodaci ostaju na uređaju, ali nećeš biti prijavljen.')) return;
+    localStorage.removeItem(GUEST_KEY);
+    showAuthScreen();
+    return;
+  }
+  if(!confirm('Odjaviti se?\n\nTvoji podaci ostaju u cloudu. Kad se vratiš, sve će biti tu.')) return;
+  await saveToCloud();
+  await sbClient.auth.signOut();
+  currentUser = null;
+  state = defaultState();
+  saveLocal();
+  showAuthScreen();
+}
+
+/* ================= UI ================= */
+function showLoading(){
+  document.getElementById('loadingScreen').style.display = 'flex';
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appWrap').style.display = 'none';
+}
+function showAuthScreen(){
+  document.getElementById('loadingScreen').style.display = 'none';
+  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('appWrap').style.display = 'none';
+  document.getElementById('cloudWarning').style.display = isCloudConfigured ? 'none' : 'block';
+  // Reset forms
+  document.getElementById('loginForm').reset();
+  document.getElementById('registerForm').reset();
+  document.querySelectorAll('#registerForm .pw-req').forEach(el => el.classList.remove('valid','invalid'));
+  switchAuthTab('login');
+}
+function startApp(){
+  document.getElementById('loadingScreen').style.display = 'none';
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appWrap').style.display = 'block';
+  const now = new Date();
+  currentView = (now.getFullYear() === state.year) ? now.getMonth() : 'pregled';
+  applySubscriptions(now.getFullYear(), now.getMonth());
+  ensureLoanPayments();
+  updateUserBadge();
+  render();
+}
+
+function getUserDisplayName(){
+  if(!currentUser) return 'Gost';
+  const meta = currentUser.user_metadata || {};
+  if(meta.first_name) return meta.first_name;
+  if(meta.full_name) return meta.full_name.split(' ')[0];
+  if(currentUser.email) return currentUser.email.split('@')[0];
+  return 'Profil';
+}
+function getUserFullName(){
+  if(!currentUser) return 'Gost';
+  const meta = currentUser.user_metadata || {};
+  const full = (meta.first_name || '') + ' ' + (meta.last_name || '');
+  if(full.trim()) return full.trim();
+  if(currentUser.email) return currentUser.email.split('@')[0];
+  return 'Profil';
+}
+
+function updateUserBadge(){
+  const av = document.getElementById('uAvatar');
+  const nm = document.getElementById('uName');
+  const st = document.getElementById('uStatus');
+  if(!av) return;
+  if(currentUser){
+    av.textContent = (getUserDisplayName()[0] || 'U').toUpperCase();
+    nm.textContent = getUserDisplayName();
+    st.className = 'u-status ' + (syncStatus === 'saving' ? 'saving' : syncStatus === 'error' ? 'error' : 'synced');
+    st.title = syncStatus === 'saving' ? 'Spremam...' : syncStatus === 'error' ? 'Greška' : 'Sinkronizirano';
+  } else {
+    av.textContent = 'G';
+    nm.textContent = 'Gost';
+    st.className = 'u-status guest';
+    st.title = 'Gost — lokalno';
+  }
 }
 
 /* ================= POMOĆNE ================= */
@@ -350,6 +924,8 @@ const mKey = (y,m) => `${y}-${String(m+1).padStart(2,'0')}`;
 const getTx = (y,m) => state.txns[mKey(y,m)] || [];
 const setTx = (y,m,a) => { state.txns[mKey(y,m)] = a; save(); };
 const eur = n => new Intl.NumberFormat('hr-HR',{style:'currency',currency:'EUR'}).format(n||0);
+const getLoans = () => state.loans || [];
+const getLoan = (id) => (state.loans || []).find(l => l.id === id);
 
 function parseAmount(v){
   let s = String(v).trim().replace(/\s/g,'');
@@ -392,6 +968,16 @@ function summarize(txns){
   s.saldo = s.prihod - s.rashod;
   return s;
 }
+function summarizeMonths(monthList){
+  const s = { prihod:0, rashod:0, cats:{}, count:0 };
+  for(const {y, m} of monthList){
+    const ms = summarize(getTx(y, m));
+    s.prihod += ms.prihod; s.rashod += ms.rashod; s.count += ms.count;
+    for(const k in ms.cats){ s.cats[k] = (s.cats[k] || 0) + ms.cats[k]; }
+  }
+  s.saldo = s.prihod - s.rashod;
+  return s;
+}
 function getSavingsTotal(){
   let total = 0;
   for(const key in state.txns){
@@ -402,15 +988,73 @@ function getSavingsTotal(){
   return total;
 }
 function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-function getRegularPaymentThisMonth(){
+function getRegularPaymentForLoanThisMonth(loanId){
   const now = new Date();
   const ym = mKey(now.getFullYear(), now.getMonth());
   const txns = state.txns[ym] || [];
-  return txns.find(t => t.loanId === 'main' && /redovna/i.test(t.desc || ''));
+  return txns.find(t => t.loanId === loanId && /redovna/i.test(t.desc || ''));
 }
 
-/* ================= PRETPLATE ================= */
+/* ================= PERIOD ================= */
+function getPeriodMonths(){
+  const p = state.period || { mode: 'year' };
+  if(p.mode === 'alltime'){
+    const keys = Object.keys(state.txns).sort();
+    if(keys.length === 0) return [];
+    const first = keys[0].split('-').map(Number);
+    const last = keys[keys.length-1].split('-').map(Number);
+    const startIdx = first[0]*12 + (first[1]-1);
+    const endIdx = last[0]*12 + (last[1]-1);
+    const result = [];
+    for(let i=startIdx; i<=endIdx; i++) result.push({ y: Math.floor(i/12), m: i%12 });
+    return result;
+  }
+  if(p.mode === 'custom' && p.from && p.to){
+    let [fy, fm] = p.from.split('-').map(Number);
+    let [ty, tm] = p.to.split('-').map(Number);
+    let startIdx = fy*12 + (fm-1);
+    let endIdx = ty*12 + (tm-1);
+    if(startIdx > endIdx){ const t = startIdx; startIdx = endIdx; endIdx = t; }
+    const result = [];
+    for(let i=startIdx; i<=endIdx; i++) result.push({ y: Math.floor(i/12), m: i%12 });
+    return result;
+  }
+  return MONTHS.map((_, i) => ({ y: state.year, m: i }));
+}
+function periodLabel(){
+  const p = state.period || { mode: 'year' };
+  if(p.mode === 'year') return String(state.year) + '.';
+  if(p.mode === 'alltime') return 'Cijela povijest';
+  if(p.mode === 'custom' && p.from && p.to){
+    const [fy, fm] = p.from.split('-');
+    const [ty, tm] = p.to.split('-');
+    return `${fm}/${fy} → ${tm}/${ty}`;
+  }
+  return 'Sve';
+}
+function setPeriodMode(mode){
+  state.period = state.period || { mode: 'year' };
+  state.period.mode = mode;
+  if(mode === 'custom' && (!state.period.from || !state.period.to)){
+    const keys = Object.keys(state.txns).sort();
+    if(keys.length){ state.period.from = keys[0]; state.period.to = keys[keys.length-1]; }
+    else {
+      const t = new Date();
+      const cur = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}`;
+      state.period.from = cur; state.period.to = cur;
+    }
+  }
+  save(); render();
+}
+function setPeriodRange(field, value){
+  if(!value) return;
+  state.period = state.period || { mode: 'custom' };
+  state.period.mode = 'custom';
+  state.period[field] = value;
+  save(); render();
+}
+
+/* ================= PRETPLATE + KREDITI ================= */
 function applySubscriptions(y, m){
   let changed = false;
   const ym = mKey(y,m);
@@ -434,93 +1078,63 @@ function applySubscriptions(y, m){
   if(changed) save();
 }
 
-/* ================= KREDIT ================= */
-// Pokušaj primijeniti redovnu ratu za TOČNO mjesec (y, m) — samo ako je to mjesec sljedeće rate.
-// Primjenjuje se kad: kalendar je stigao do tog mjeseca ILI postoji prihod u tom mjesecu.
-function applyLoanMonthly(y, m){
-  const L = state.loan;
-  if(!L || !L.autoMonthly || L.remaining <= 0) return false;
-  if(!L.nextPaymentDate) return false;
-
-  const [ny, nm] = L.nextPaymentDate.split('-').map(Number);
+function applyLoanMonthlyForLoan(loan, y, m){
+  if(!loan || !loan.autoMonthly || loan.remaining <= 0) return false;
+  if(!loan.nextPaymentDate) return false;
+  const [ny, nm] = loan.nextPaymentDate.split('-').map(Number);
   const nextIdx = ny*12 + (nm-1);
   const curIdx = y*12 + m;
-
   if(curIdx !== nextIdx) return false;
-
   const realNow = new Date();
   const realIdx = realNow.getFullYear()*12 + realNow.getMonth();
   const calendarArrived = curIdx <= realIdx;
-
   const ym = mKey(y, m);
   const monthTx = state.txns[ym] || [];
   const hasIncome = monthTx.some(t => t.type === 'prihod');
-
   if(!calendarArrived && !hasIncome) return false;
-
-  if(monthTx.some(t => t.loanId === 'main' && /redovna/i.test(t.desc || ''))){
-    // Sigurnosna kopija — ako već postoji, pomakni nextPaymentDate i izađi
-    L.nextPaymentDate = addMonth(L.nextPaymentDate);
-    save();
-    return false;
+  if(monthTx.some(t => t.loanId === loan.id && /redovna/i.test(t.desc || ''))){
+    loan.nextPaymentDate = addMonth(loan.nextPaymentDate);
+    save(); return false;
   }
-
-  const day = Math.min(28, Math.max(1, parseInt((L.nextPaymentDate||'').slice(8,10)) || 1));
+  const day = Math.min(28, Math.max(1, parseInt((loan.nextPaymentDate||'').slice(8,10)) || 1));
   const date = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-  const amount = Math.min(L.annuity, L.remaining);
-
+  const amount = Math.min(loan.annuity, loan.remaining);
   const arr = state.txns[ym] = state.txns[ym] || [];
-  arr.push({ id: uid(), date, desc: 'Kredit — redovna rata', amount, category: LOAN_CAT, type: 'rashod', loanId: 'main' });
-
-  L.remaining = Math.max(0, L.remaining - amount);
-  if(L.installmentsRemaining != null && L.installmentsRemaining > 0) L.installmentsRemaining--;
-  L.nextPaymentDate = addMonth(L.nextPaymentDate);
-  L.payments = L.payments || [];
-  L.payments.push({ id: uid(), date, amount, type: 'regular', ym });
-  save();
-  return true;
+  arr.push({ id: uid(), date, desc: `${loan.name} — redovna rata`, amount, category: LOAN_CAT, type: 'rashod', loanId: loan.id });
+  loan.remaining = Math.max(0, loan.remaining - amount);
+  if(loan.installmentsRemaining != null && loan.installmentsRemaining > 0) loan.installmentsRemaining--;
+  loan.nextPaymentDate = addMonth(loan.nextPaymentDate);
+  save(); return true;
 }
 
-// Prođi kroz sve mjesece od sljedeće rate do STVARNOG trenutnog mjeseca i primijeni sve zakašnjele rate
 function ensureLoanPayments(){
-  const L = state.loan;
-  if(!L || !L.autoMonthly || L.remaining <= 0) return false;
-  if(!L.nextPaymentDate) return false;
-
   let changed = false;
   const realNow = new Date();
   const realIdx = realNow.getFullYear()*12 + realNow.getMonth();
-  let safety = 0;
-
-  while(L.remaining > 0 && safety < 600){
-    const [ny, nm] = L.nextPaymentDate.split('-').map(Number);
-    const nextIdx = ny*12 + (nm-1);
-    if(nextIdx > realIdx) break;
-
-    const y = Math.floor(nextIdx / 12);
-    const m = nextIdx % 12;
-    const ym = mKey(y, m);
-    const monthTx = state.txns[ym] || [];
-
-    if(monthTx.some(t => t.loanId === 'main' && /redovna/i.test(t.desc || ''))){
-      // Rate za taj mjesec već postoji — samo pomakni nextPaymentDate
-      L.nextPaymentDate = addMonth(L.nextPaymentDate);
-      save();
+  for(const loan of getLoans()){
+    if(!loan.autoMonthly || loan.remaining <= 0) continue;
+    if(!loan.nextPaymentDate) continue;
+    let safety = 0;
+    while(loan.remaining > 0 && safety < 600){
+      const [ny, nm] = loan.nextPaymentDate.split('-').map(Number);
+      const nextIdx = ny*12 + (nm-1);
+      if(nextIdx > realIdx) break;
+      const y = Math.floor(nextIdx / 12);
+      const m = nextIdx % 12;
+      const ym = mKey(y, m);
+      const monthTx = state.txns[ym] || [];
+      if(monthTx.some(t => t.loanId === loan.id && /redovna/i.test(t.desc || ''))){
+        loan.nextPaymentDate = addMonth(loan.nextPaymentDate);
+        save(); safety++; continue;
+      }
+      if(applyLoanMonthlyForLoan(loan, y, m)) changed = true;
+      else break;
       safety++;
-      continue;
     }
-
-    if(applyLoanMonthly(y, m)){
-      changed = true;
-    } else {
-      break;
-    }
-    safety++;
   }
   return changed;
 }
 
-// Mjesec u koji ide izvanredna uplata (ako smo u pregledu → stvarni mjesec)
 function extraPaymentMonth(){
   if(typeof currentView === 'number') return { y: state.year, m: currentView };
   const now = new Date();
@@ -529,8 +1143,12 @@ function extraPaymentMonth(){
 
 /* ================= RENDER ================= */
 function render(){
+  if(!currentUser && !isGuestMode) return;
   document.getElementById('yearLbl').textContent = state.year;
-  document.getElementById('moreBtn').classList.toggle('active', currentView === 'settings');
+
+  const yearWrap = document.getElementById('yearWrap');
+  const hideYear = currentView === 'pregled' && state.period && state.period.mode !== 'year';
+  yearWrap.style.display = hideYear ? 'none' : '';
 
   const tabs = document.getElementById('tabs');
   let html = `<button class="tab ${currentView==='pregled'?'active':''}" onclick="go('pregled')">📊 Pregled</button>`;
@@ -544,195 +1162,268 @@ function render(){
   else document.getElementById('view').innerHTML = renderMonth(currentView);
 }
 
-/* ---------- LOAN STATS PANEL (Pregled) ---------- */
+function renderPeriodSelector(){
+  const p = state.period || { mode: 'year' };
+  const rangeHtml = p.mode === 'custom' ? `
+    <div class="period-range-wrap">
+      <input type="month" value="${p.from||''}" onchange="setPeriodRange('from', this.value)">
+      <span class="period-range-arrow">→</span>
+      <input type="month" value="${p.to||''}" onchange="setPeriodRange('to', this.value)">
+    </div>` : '';
+  return `
+    <div class="period-panel">
+      <div class="period-top">
+        <div class="period-title">📊 Period prikaza</div>
+        <div class="period-current">${periodLabel()}</div>
+      </div>
+      <div class="period-segments">
+        <button class="segment ${p.mode==='year'?'active':''}" onclick="setPeriodMode('year')">
+          <span class="ico">📅</span><span class="lbl">Godina</span><span class="lbl-short">God.</span>
+        </button>
+        <button class="segment ${p.mode==='alltime'?'active':''}" onclick="setPeriodMode('alltime')">
+          <span class="ico">🕰</span><span class="lbl">Do sada</span><span class="lbl-short">Sve</span>
+        </button>
+        <button class="segment ${p.mode==='custom'?'active':''}" onclick="setPeriodMode('custom')">
+          <span class="ico">📆</span><span class="lbl">Raspon</span><span class="lbl-short">Rasp.</span>
+        </button>
+      </div>
+      ${rangeHtml}
+    </div>`;
+}
+
 function renderLoanStatsPanel(){
-  const L = state.loan;
-  if(!L) return '';
-
-  const paid = L.originalTotal > 0 ? (L.originalTotal - L.remaining) : 0;
-  const pct = L.originalTotal > 0 ? Math.min(100, (paid / L.originalTotal) * 100) : 0;
-
-  let totalPaid = 0, regularCount = 0, extraCount = 0, extraSum = 0, regularSum = 0;
+  const loans = getLoans();
+  if(loans.length === 0) return '';
+  const months = getPeriodMonths();
+  const monthSet = new Set(months.map(({y,m}) => mKey(y,m)));
+  let totalPaidPeriod = 0, regularCount = 0, extraCount = 0, extraSum = 0, regularSum = 0;
+  const loanIds = new Set(loans.map(l => l.id));
   for(const key in state.txns){
+    if(!monthSet.has(key)) continue;
     for(const t of state.txns[key]){
-      if(t.loanId === 'main' && t.type === 'rashod'){
+      if(t.type === 'rashod' && t.loanId && loanIds.has(t.loanId)){
         const a = Number(t.amount) || 0;
-        totalPaid += a;
-        if(/izvanredna/i.test(t.desc || '')){
-          extraCount++;
-          extraSum += a;
-        } else {
-          regularCount++;
-          regularSum += a;
-        }
+        totalPaidPeriod += a;
+        if(/izvanredna/i.test(t.desc || '')){ extraCount++; extraSum += a; }
+        else { regularCount++; regularSum += a; }
       }
     }
   }
-
+  const totalRemaining = loans.reduce((s, l) => s + (l.remaining || 0), 0);
+  const totalOriginal = loans.reduce((s, l) => s + (l.originalTotal || 0), 0);
+  const totalMonthly = loans.reduce((s, l) => s + (l.annuity || 0), 0);
+  const totalInstallmentsRem = loans.reduce((s, l) => s + (l.installmentsRemaining || 0), 0);
+  const activeCount = loans.filter(l => l.remaining > 0).length;
+  const pct = totalOriginal > 0 ? Math.min(100, ((totalOriginal - totalRemaining) / totalOriginal) * 100) : 0;
+  const perLoanHtml = loans.map(loan => {
+    const paid = loan.originalTotal - loan.remaining;
+    const p = loan.originalTotal > 0 ? (paid / loan.originalTotal) * 100 : 0;
+    return `<div class="lsr-row">
+      <div class="lsr-name">${escapeHtml(loan.name)}</div>
+      <div class="lsr-bar"><div class="lsr-fill" style="width:${Math.min(100,p)}%"></div></div>
+      <div class="lsr-pct">${p.toFixed(0)}%</div>
+      <div class="lsr-remaining">${eur(loan.remaining)}</div>
+    </div>`;
+  }).join('');
   return `
     <div class="panel loan-stats-panel">
-      <h2>🏦 Kredit — statistika</h2>
+      <h2>🏦 Krediti — statistika${loans.length > 1 ? ` (${loans.length})` : ''}</h2>
       <div class="loan-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
-        <div class="loan-stat"><div class="lbl">Preostalo</div><div class="val rose">${eur(L.remaining)}</div></div>
-        <div class="loan-stat"><div class="lbl">Mjesečna rata</div><div class="val">${eur(L.annuity)}</div></div>
-        <div class="loan-stat"><div class="lbl">Sljedeća rata</div><div class="val" style="font-size:14px">${fmtMonthHR(L.nextPaymentDate)}</div></div>
-        <div class="loan-stat"><div class="lbl">Preostalo rata</div><div class="val">${L.installmentsRemaining ?? '—'}${L.installmentsTotal?` <span style="color:var(--text-dim);font-size:13px;font-weight:500">/ ${L.installmentsTotal}</span>`:''}</div></div>
-        <div class="loan-stat"><div class="lbl">Ukupno plaćeno</div><div class="val">${eur(totalPaid)}</div></div>
+        <div class="loan-stat"><div class="lbl">Aktivnih kredita</div><div class="val">${activeCount}${loans.length > activeCount ? ` <span style="color:var(--text-dim);font-size:13px;font-weight:500">/ ${loans.length}</span>` : ''}</div></div>
+        <div class="loan-stat"><div class="lbl">Ukupno preostalo</div><div class="val rose">${eur(totalRemaining)}</div></div>
+        <div class="loan-stat"><div class="lbl">Mjesečno ukupno</div><div class="val">${eur(totalMonthly)}</div></div>
+        <div class="loan-stat"><div class="lbl">Preostalo rata</div><div class="val">${totalInstallmentsRem}</div></div>
+        <div class="loan-stat"><div class="lbl">Plaćeno u periodu</div><div class="val">${eur(totalPaidPeriod)}</div></div>
         <div class="loan-stat"><div class="lbl">Otplaćeno</div><div class="val green">${pct.toFixed(1)}%</div></div>
         <div class="loan-stat"><div class="lbl">Redovnih rata</div><div class="val">${regularCount}${regularSum?` <span style="color:var(--text-dim);font-size:11px;font-weight:500">(${eur(regularSum)})</span>`:''}</div></div>
         <div class="loan-stat"><div class="lbl">Izvanrednih</div><div class="val">${extraCount}${extraSum?` <span style="color:var(--text-dim);font-size:11px;font-weight:500">(${eur(extraSum)})</span>`:''}</div></div>
       </div>
-      <div class="loan-progress" style="margin-top:14px"><div class="loan-progress-fill" style="width:${pct}%"></div></div>
-      <div class="loan-progress-lbl">
-        <span>Otplaćeno: ${eur(paid)}</span>
-        <span>Ukupno: ${eur(L.originalTotal)}</span>
-      </div>
+      ${loans.length > 1 ? `
+        <h3 style="margin-top:16px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted)">Po kreditu</h3>
+        <div class="per-loan-list">${perLoanHtml}</div>
+      ` : `
+        <div class="loan-progress" style="margin-top:14px"><div class="loan-progress-fill" style="width:${pct}%"></div></div>
+        <div class="loan-progress-lbl">
+          <span>Otplaćeno: ${eur(totalOriginal - totalRemaining)}</span>
+          <span>Ukupno: ${eur(totalOriginal)}</span>
+        </div>
+      `}
     </div>`;
 }
 
-/* ---------- KREDIT PANEL (sklopiv) ---------- */
-function renderLoanPanel(){
-  const L = state.loan;
-  const collapsed = isLoanCollapsed();
+function getLoansUI(){
+  try{ return JSON.parse(localStorage.getItem(LOANS_UI_KEY) || '{}'); }catch(e){ return {}; }
+}
+function isLoanCollapsed(id){
+  const ui = getLoansUI();
+  return ui[id] === undefined ? true : !!ui[id];
+}
+function toggleLoanCollapse(id){
+  const ui = getLoansUI();
+  ui[id] = !isLoanCollapsed(id);
+  localStorage.setItem(LOANS_UI_KEY, JSON.stringify(ui));
+  render();
+}
 
-  if(!L){
-    return `
-      <div class="panel loan-panel">
-        <div class="loan-head">
-          <h2>🏦 Kredit</h2>
-        </div>
-        <div class="loan-body" style="padding-top:12px">
-          <div class="empty">Nema postavljenog kredita. <a href="#" onclick="go('settings');return false;" style="color:var(--primary);font-weight:600">Postavi u „Više" →</a></div>
-        </div>
-      </div>`;
-  }
-
-  const paid = L.originalTotal > 0 ? (L.originalTotal - L.remaining) : 0;
-  const pct = L.originalTotal > 0 ? Math.min(100, (paid / L.originalTotal) * 100) : 0;
-
-  const summary = collapsed
-    ? `<div class="loan-summary">Preostalo: <b>${eur(L.remaining)}</b> · Sljedeća: ${fmtMonthHR(L.nextPaymentDate)}</div>`
-    : '';
-
+function renderLoanCard(loan){
+  const collapsed = isLoanCollapsed(loan.id);
+  const paid = loan.originalTotal > 0 ? (loan.originalTotal - loan.remaining) : 0;
+  const pct = loan.originalTotal > 0 ? Math.min(100, (paid / loan.originalTotal) * 100) : 0;
   const now = new Date();
   const currMonthName = MONTHS[now.getMonth()];
-  const paidThisMonth = getRegularPaymentThisMonth();
-
+  const paidThisMonth = getRegularPaymentForLoanThisMonth(loan.id);
   let actionsHtml = '';
-  if(L.autoMonthly){
+  if(loan.autoMonthly){
     if(paidThisMonth){
-      actionsHtml = `
-        <div class="loan-actions">
-          <button class="btn-add done" disabled>✅ Rata za ${currMonthName} uplaćena (auto)</button>
-          <button class="btn-add" onclick="payExtra()">➕ Izvanredna uplata</button>
-        </div>`;
+      actionsHtml = `<div class="loan-actions">
+        <button class="btn-add done" disabled>✅ Rata za ${currMonthName} uplaćena (auto)</button>
+        <button class="btn-add" onclick="payExtra('${loan.id}')">➕ Izvanredna uplata</button>
+      </div>`;
     } else {
-      actionsHtml = `
-        <div class="loan-actions">
-          <div class="loan-auto-info">🔁 Automatska rata uključena · sljedeća: <b>${fmtMonthHR(L.nextPaymentDate)}</b></div>
-          <button class="btn-add" onclick="payExtra()">➕ Izvanredna uplata</button>
-        </div>`;
+      actionsHtml = `<div class="loan-actions">
+        <div class="loan-auto-info">🔁 Automatska rata · sljedeća: <b>${fmtMonthHR(loan.nextPaymentDate)}</b></div>
+        <button class="btn-add" onclick="payExtra('${loan.id}')">➕ Izvanredna uplata</button>
+      </div>`;
     }
   } else {
     if(paidThisMonth){
-      actionsHtml = `
-        <div class="loan-actions">
-          <button class="btn-add done" disabled>✅ Rata za ${currMonthName} uplaćena</button>
-          <button class="btn-add ghost" onclick="undoRegularPayment()">↩️ Poništi uplatu</button>
-          <button class="btn-add" onclick="payExtra()">➕ Izvanredna uplata</button>
-        </div>`;
+      actionsHtml = `<div class="loan-actions">
+        <button class="btn-add done" disabled>✅ Rata za ${currMonthName} uplaćena</button>
+        <button class="btn-add ghost" onclick="undoRegularPayment('${loan.id}')">↩️ Poništi</button>
+        <button class="btn-add" onclick="payExtra('${loan.id}')">➕ Izvanredna</button>
+      </div>`;
     } else {
-      const amt = Math.min(L.annuity, L.remaining);
-      actionsHtml = `
-        <div class="loan-actions">
-          <button class="btn-add green" onclick="payRegular()">✅ Uplati ratu za ${currMonthName} (${eur(amt)})</button>
-          <button class="btn-add" onclick="payExtra()">➕ Izvanredna uplata</button>
-        </div>`;
+      const amt = Math.min(loan.annuity, loan.remaining);
+      actionsHtml = `<div class="loan-actions">
+        <button class="btn-add green" onclick="payRegular('${loan.id}')">✅ Uplati ratu za ${currMonthName} (${eur(amt)})</button>
+        <button class="btn-add" onclick="payExtra('${loan.id}')">➕ Izvanredna uplata</button>
+      </div>`;
     }
   }
-
+  const summary = collapsed
+    ? `<div class="lc-summary">Preostalo: <b>${eur(loan.remaining)}</b> · ${fmtMonthHR(loan.nextPaymentDate)}</div>`
+    : '';
   return `
-    <div class="panel loan-panel ${collapsed?'':'expanded'}">
-      <div class="loan-head" onclick="toggleLoanPanel()">
-        <h2>🏦 ${escapeHtml(L.name||'Kredit')}</h2>
-        <div style="display:flex;gap:10px;align-items:center">
-          ${summary}
-          <span class="collapse-arrow">▼</span>
-        </div>
+    <div class="loan-card ${collapsed?'':'expanded'}">
+      <div class="loan-card-head" onclick="toggleLoanCollapse('${loan.id}')">
+        <div class="lc-name">${escapeHtml(loan.name)}</div>
+        <div class="lc-right">${summary}<span class="collapse-arrow">▼</span></div>
       </div>
-      <div class="loan-body">
+      <div class="loan-card-body">
         <div class="loan-grid">
-          <div class="loan-stat"><div class="lbl">Preostalo</div><div class="val rose">${eur(L.remaining)}</div></div>
-          <div class="loan-stat"><div class="lbl">Mjesečna rata</div><div class="val">${eur(L.annuity)}</div></div>
-          <div class="loan-stat"><div class="lbl">Preostalo rata</div><div class="val">${L.installmentsRemaining ?? '—'}${L.installmentsTotal?` <span style="color:var(--text-dim);font-size:13px;font-weight:500">/ ${L.installmentsTotal}</span>`:''}</div></div>
-          <div class="loan-stat"><div class="lbl">Sljedeća rata</div><div class="val" style="font-size:14px">${fmtMonthHR(L.nextPaymentDate)}</div></div>
+          <div class="loan-stat"><div class="lbl">Preostalo</div><div class="val rose">${eur(loan.remaining)}</div></div>
+          <div class="loan-stat"><div class="lbl">Mjesečna rata</div><div class="val">${eur(loan.annuity)}</div></div>
+          <div class="loan-stat"><div class="lbl">Preostalo rata</div><div class="val">${loan.installmentsRemaining ?? '—'}${loan.installmentsTotal?` <span style="color:var(--text-dim);font-size:13px;font-weight:500">/ ${loan.installmentsTotal}</span>`:''}</div></div>
+          <div class="loan-stat"><div class="lbl">Sljedeća rata</div><div class="val" style="font-size:14px">${fmtMonthHR(loan.nextPaymentDate)}</div></div>
           <div class="loan-stat"><div class="lbl">Otplaćeno</div><div class="val">${pct.toFixed(1)}%</div></div>
         </div>
         <div class="loan-progress"><div class="loan-progress-fill" style="width:${pct}%"></div></div>
         <div class="loan-progress-lbl">
           <span>Otplaćeno: ${eur(paid)}</span>
-          <span>Ukupno: ${eur(L.originalTotal)}</span>
+          <span>Ukupno: ${eur(loan.originalTotal)}</span>
         </div>
         ${actionsHtml}
       </div>
     </div>`;
 }
 
-/* ---------- PREGLED ---------- */
+function renderLoanPanel(){
+  const loans = getLoans();
+  if(loans.length === 0){
+    return `<div class="panel loan-panel">
+      <h2>🏦 Krediti</h2>
+      <div class="empty">Nema postavljenih kredita. <a href="#" onclick="go('settings');return false;" style="color:var(--primary);font-weight:600">Dodaj u postavkama →</a></div>
+    </div>`;
+  }
+  const totalRemaining = loans.reduce((s, l) => s + (l.remaining || 0), 0);
+  const activeCount = loans.filter(l => l.remaining > 0).length;
+  return `
+    <div class="panel loan-panel">
+      <h2>🏦 Krediti <span style="color:var(--text);font-weight:800">(${loans.length})</span>${activeCount !== loans.length ? ` · aktivnih: ${activeCount}` : ''} · ukupno: <span style="color:var(--rose)">${eur(totalRemaining)}</span></h2>
+      <div class="loan-cards">${loans.map(renderLoanCard).join('')}</div>
+    </div>`;
+}
+
 function renderOverview(){
-  let totInc=0, totExp=0, totCount=0;
-  const rows = MONTHS.map((name,i)=>{
-    const txns = getTx(state.year,i);
-    const s = summarize(txns);
-    totInc += s.prihod; totExp += s.rashod; totCount += s.count;
-    return {name, s};
-  });
-
-  const activeMonths = rows.filter(r => r.s.count > 0).length || 1;
-  const avgInc = totInc / activeMonths;
-  const avgExp = totExp / activeMonths;
-
+  const months = getPeriodMonths();
+  const pLabel = periodLabel();
+  if(months.length === 0){
+    return `${renderPeriodSelector()}
+      <div class="panel"><div class="empty">
+        Nema podataka za odabrani period.<br>
+        <span style="font-size:12px;color:var(--text-dim)">Dodaj transakciju u neki mjesec pa se vrati na Pregled.</span>
+      </div></div>`;
+  }
+  const allSum = summarizeMonths(months);
+  const totInc = allSum.prihod, totExp = allSum.rashod, totCount = allSum.count;
+  const activeMonths = months.filter(({y,m}) => (state.txns[mKey(y,m)]||[]).length > 0).length || 1;
+  const avgInc = totInc / activeMonths, avgExp = totExp / activeMonths;
   const catTotals = {};
-  rows.forEach(r => {
-    for(const k in r.s.cats){
-      if(k.startsWith('rashod:')){
-        catTotals[k] = (catTotals[k]||0) + r.s.cats[k];
-      }
-    }
+  months.forEach(({y,m})=>{
+    const ms = summarize(getTx(y, m));
+    for(const k in ms.cats){ if(k.startsWith('rashod:')) catTotals[k] = (catTotals[k]||0) + ms.cats[k]; }
   });
   let biggest = '—', biggestVal = 0;
   for(const k in catTotals){ if(catTotals[k] > biggestVal){ biggestVal = catTotals[k]; biggest = k.split(':')[1]; } }
 
-  const maxVal = Math.max(1, ...rows.map(r=>Math.max(r.s.prihod, r.s.rashod)));
+  let chartData;
+  if(months.length <= 12){
+    chartData = months.map(({y,m})=>{
+      const s = summarize(getTx(y, m));
+      const label = state.period.mode === 'year' ? SHORT[m] : `${SHORT[m]} ${String(y).slice(-2)}`;
+      return { label, prihod: s.prihod, rashod: s.rashod };
+    });
+  } else {
+    const yg = {};
+    months.forEach(({y,m})=>{
+      const s = summarize(getTx(y, m));
+      if(!yg[y]) yg[y] = { prihod:0, rashod:0 };
+      yg[y].prihod += s.prihod; yg[y].rashod += s.rashod;
+    });
+    chartData = Object.keys(yg).sort().map(y => ({ label: y + '.', prihod: yg[y].prihod, rashod: yg[y].rashod }));
+  }
+  const maxVal = Math.max(1, ...chartData.map(d => Math.max(d.prihod, d.rashod)));
   let chart = '<div class="barchart">';
-  rows.forEach(r=>{
-    const hi = Math.round((r.s.prihod/maxVal)*100);
-    const he = Math.round((r.s.rashod/maxVal)*100);
-    chart += `<div class="bc-col" title="${r.name}: +${eur(r.s.prihod)} / −${eur(r.s.rashod)}">
-      <div class="bc-pair">
-        <div class="bc-bar inc" style="height:${hi}%"></div>
-        <div class="bc-bar exp" style="height:${he}%"></div>
-      </div>
+  chartData.forEach(d=>{
+    const hi = Math.round((d.prihod/maxVal)*100);
+    const he = Math.round((d.rashod/maxVal)*100);
+    chart += `<div class="bc-col" title="${d.label}: +${eur(d.prihod)} / −${eur(d.rashod)}">
+      <div class="bc-pair"><div class="bc-bar inc" style="height:${hi}%"></div><div class="bc-bar exp" style="height:${he}%"></div></div>
     </div>`;
   });
-  chart += '</div>';
-  chart += '<div class="barchart" style="height:auto;padding:0">';
-  rows.forEach(r=>{ chart += `<div class="bc-col"><div class="bc-lbl">${SHORT[MONTHS.indexOf(r.name)]}</div></div>`; });
+  chart += '</div><div class="barchart" style="height:auto;padding:0">';
+  chartData.forEach(d=>{ chart += `<div class="bc-col"><div class="bc-lbl">${d.label}</div></div>`; });
   chart += '</div>';
 
+  const groupByYear = months.length > 12;
+  const firstColLabel = groupByYear ? 'Godina' : (state.period.mode === 'year' ? 'Mjesec' : 'Period');
+  const detailTitle = groupByYear ? 'Detaljno po godinama' : 'Detaljno po mjesecima';
+  let tableRows;
+  if(groupByYear){
+    const yg = {};
+    months.forEach(({y,m})=>{ if(!yg[y]) yg[y] = []; yg[y].push({y, m}); });
+    tableRows = Object.keys(yg).sort().map(y => ({ label: y + '.', s: summarizeMonths(yg[y]) }));
+  } else {
+    tableRows = months.map(({y,m})=>{
+      const s = summarize(getTx(y, m));
+      let label;
+      if(state.period.mode === 'year') label = MONTHS[m];
+      else label = `${SHORT[m]} ${String(y).slice(-2)}`;
+      return { label, s };
+    });
+  }
   const colKeys = [
     ['prihod:Plaća','Plaća'],['prihod:Manča','Manča'],['prihod:Fatureta','Fatureta'],['prihod:Ostalo','Ost. prih.'],
     ['rashod:Pretplate','Pretplate'],['rashod:Hrana','Hrana'],['rashod:Gorivo','Gorivo'],
     ['rashod:Kava','Kava'],['rashod:Štednja','Štednja'],['rashod:Kredit','Kredit'],['rashod:Ostalo','Ost. rash.']
   ];
-  let thead = '<tr><th>Mjesec</th>';
+  let thead = `<tr><th>${firstColLabel}</th>`;
   colKeys.forEach(([k,l])=>{ thead += `<th>${l}</th>`; });
   thead += '<th>Prihodi</th><th>Rashodi</th><th>Saldo</th></tr>';
-
   let tbody = '';
   const colTotals = {};
-  rows.forEach(r=>{
-    tbody += `<tr><td>${r.name}</td>`;
+  tableRows.forEach(r=>{
+    tbody += `<tr><td>${r.label}</td>`;
     colKeys.forEach(([k])=>{
       const v = r.s.cats[k]||0;
       colTotals[k] = (colTotals[k]||0)+v;
@@ -747,33 +1438,30 @@ function renderOverview(){
   const totSaldo = totInc - totExp;
   tbody += `<td class="pos">${eur(totInc)}</td><td class="neg">${eur(totExp)}</td>`;
   tbody += `<td class="${totSaldo>=0?'pos':'neg'}">${eur(totSaldo)}</td></tr>`;
-
   const savings = getSavingsTotal();
 
   return `
+    ${renderPeriodSelector()}
     <div class="cards">
-      <div class="card inc"><div class="lbl">Prihodi ${state.year}</div><div class="val">${eur(totInc)}</div><div class="sub">${activeMonths} aktivnih mj.</div></div>
-      <div class="card exp"><div class="lbl">Rashodi ${state.year}</div><div class="val">${eur(totExp)}</div><div class="sub">prosj. ${eur(avgExp)}/mj</div></div>
-      <div class="card bal ${totSaldo<0?'neg':''}"><div class="lbl">Saldo godine</div><div class="val">${eur(totSaldo)}</div></div>
+      <div class="card inc"><div class="lbl">Prihodi · ${pLabel}</div><div class="val">${eur(totInc)}</div><div class="sub">${activeMonths} aktivnih mj.</div></div>
+      <div class="card exp"><div class="lbl">Rashodi · ${pLabel}</div><div class="val">${eur(totExp)}</div><div class="sub">prosj. ${eur(avgExp)}/mj</div></div>
+      <div class="card bal ${totSaldo<0?'neg':''}"><div class="lbl">Saldo</div><div class="val">${eur(totSaldo)}</div></div>
       <div class="card sav"><div class="lbl">🐖 Štednja ukupno</div><div class="val">${eur(savings)}</div><div class="sub">sve godine</div></div>
       <div class="card"><div class="lbl">Transakcija</div><div class="val">${totCount}</div></div>
       <div class="card"><div class="lbl">Prosj. prihod/mj</div><div class="val" style="color:var(--green)">${eur(avgInc)}</div></div>
       <div class="card"><div class="lbl">Najveći rashod</div><div class="val" style="font-size:16px">${biggest}</div><div class="sub">${biggestVal?eur(biggestVal):'—'}</div></div>
     </div>
-
     ${renderLoanStatsPanel()}
-
     <div class="panel">
-      <h2>Prihodi vs. rashodi po mjesecima</h2>
+      <h2>Prihodi vs. rashodi ${chartData.length > 12 ? '— po mjesecima' : ''}</h2>
       ${chart}
       <div class="legend">
         <span><i style="background:var(--green)"></i>Prihodi</span>
         <span><i style="background:var(--red)"></i>Rashodi</span>
       </div>
     </div>
-
     <div class="panel">
-      <h2>Detaljno po mjesecima</h2>
+      <h2>${detailTitle}</h2>
       <div class="table-wrap"><table><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>
       <div class="toolbar">
         <button onclick="exportCSV()">⬇ Export CSV</button>
@@ -782,19 +1470,15 @@ function renderOverview(){
         <input type="file" id="imp" accept=".json" style="display:none" onchange="restoreJSON(event)">
       </div>
     </div>
-
     ${renderLoanPanel()}`;
 }
 
-/* ---------- MJESEC ---------- */
 function renderMonth(m){
   const txns = [...getTx(state.year,m)].sort((a,b)=> (b.date||'').localeCompare(a.date||''));
   const s = summarize(txns);
   const savings = getSavingsTotal();
-
   const catOpts = CATS[formType].map(c=>`<option>${c}</option>`).join('');
   const defDate = defaultDate(m);
-
   let list = '';
   if(txns.length===0){
     list = '<div class="empty">Još nema transakcija za ' + MONTHS[m].toLowerCase() + '.<br>Dodaj prvu gore ☝️</div>';
@@ -814,7 +1498,6 @@ function renderMonth(m){
       </div>`;
     });
   }
-
   let bd = '';
   const allKeys = [...CATS.prihod.map(c=>'prihod:'+c), ...CATS.rashod.map(c=>'rashod:'+c)];
   const active = allKeys.filter(k=>s.cats[k]);
@@ -838,91 +1521,61 @@ function renderMonth(m){
       <div class="card bal ${s.saldo<0?'neg':''}"><div class="lbl">Saldo mjeseca</div><div class="val">${eur(s.saldo)}</div></div>
       <div class="card sav"><div class="lbl">🐖 Štednja ukupno</div><div class="val">${eur(savings)}</div><div class="sub">sve godine</div></div>
     </div>
-
     <div class="panel quick-panel">
       <h2>⚡ Brzi unos — ${MONTHS[m]}</h2>
       <div class="quick-grid">
         <div class="quick-card inc">
           <div class="qc-head"><span>💰 Plaća</span><span class="qc-tag">Prihod</span></div>
-          <div class="qc-row">
-            <input id="q_placa" inputmode="decimal" placeholder="0,00" autocomplete="off"
-              onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Plaća','q_placa')}">
-            <button type="button" onclick="quickAdd('prihod','Plaća','q_placa')">Dodaj</button>
-          </div>
+          <div class="qc-row"><input id="q_placa" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Plaća','q_placa')}"><button type="button" onclick="quickAdd('prihod','Plaća','q_placa')">Dodaj</button></div>
         </div>
         <div class="quick-card inc">
           <div class="qc-head"><span>🎁 Manča</span><span class="qc-tag">Prihod</span></div>
-          <div class="qc-row">
-            <input id="q_manca" inputmode="decimal" placeholder="0,00" autocomplete="off"
-              onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Manča','q_manca')}">
-            <button type="button" onclick="quickAdd('prihod','Manča','q_manca')">Dodaj</button>
-          </div>
+          <div class="qc-row"><input id="q_manca" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Manča','q_manca')}"><button type="button" onclick="quickAdd('prihod','Manča','q_manca')">Dodaj</button></div>
         </div>
         <div class="quick-card exp">
           <div class="qc-head"><span>⛽ Gorivo</span><span class="qc-tag">Rashod</span></div>
-          <div class="qc-row">
-            <input id="q_gorivo" inputmode="decimal" placeholder="0,00" autocomplete="off"
-              onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Gorivo','q_gorivo')}">
-            <button type="button" onclick="quickAdd('rashod','Gorivo','q_gorivo')">Dodaj</button>
-          </div>
+          <div class="qc-row"><input id="q_gorivo" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Gorivo','q_gorivo')}"><button type="button" onclick="quickAdd('rashod','Gorivo','q_gorivo')">Dodaj</button></div>
         </div>
         <div class="quick-card sav">
           <div class="qc-head"><span>🐖 Štednja</span><span class="qc-tag">Sa strane</span></div>
-          <div class="qc-row">
-            <input id="q_stednja" inputmode="decimal" placeholder="0,00" autocomplete="off"
-              onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Štednja','q_stednja')}">
-            <button type="button" onclick="quickAdd('rashod','Štednja','q_stednja')">Dodaj</button>
-          </div>
+          <div class="qc-row"><input id="q_stednja" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Štednja','q_stednja')}"><button type="button" onclick="quickAdd('rashod','Štednja','q_stednja')">Dodaj</button></div>
           <div class="qc-note">Rashod s plaće, ali akumulira se u „Štednja ukupno".</div>
         </div>
       </div>
     </div>
-
     <div class="panel">
       <h2>Nova transakcija — ${MONTHS[m]}</h2>
       <form class="add" onsubmit="addTxn(event,${m})">
-        <div class="field">
-          <label>Tip</label>
+        <div class="field"><label>Tip</label>
           <div class="toggle">
             <button type="button" class="${formType==='prihod'?'on inc':''}" onclick="setType('prihod',${m})">Prihod</button>
             <button type="button" class="${formType==='rashod'?'on exp':''}" onclick="setType('rashod',${m})">Rashod</button>
           </div>
         </div>
-        <div class="field f-desc">
-          <label>Opis</label>
-          <input name="desc" placeholder="npr. Netflix, kava s kolegom..." autocomplete="off">
-        </div>
-        <div class="field">
-          <label>Iznos (€)</label>
-          <input name="amount" inputmode="decimal" placeholder="0,00" required autocomplete="off">
-        </div>
-        <div class="field">
-          <label>Kategorija</label>
-          <select name="category">${catOpts}</select>
-        </div>
-        <div class="field f-btn">
-          <label>&nbsp;</label>
-          <button class="btn-add" type="submit">+ Dodaj</button>
-        </div>
+        <div class="field f-desc"><label>Opis</label><input name="desc" placeholder="npr. Netflix, kava..." autocomplete="off"></div>
+        <div class="field"><label>Iznos (€)</label><input name="amount" inputmode="decimal" placeholder="0,00" required autocomplete="off"></div>
+        <div class="field"><label>Kategorija</label><select name="category">${catOpts}</select></div>
+        <div class="field f-btn"><label>&nbsp;</label><button class="btn-add" type="submit">+ Dodaj</button></div>
         <input type="hidden" name="date" value="${defDate}">
       </form>
     </div>
-
     <div class="panel">
       <h2>Razrada po kategorijama</h2>
       <div class="breakdown">${bd}</div>
     </div>
-
     ${renderLoanPanel()}
-
     <div class="panel">
       <h2>Transakcije (${txns.length})</h2>
       <div class="txns">${list}</div>
     </div>`;
 }
 
-/* ---------- VIŠE (Postavke) ---------- */
+/* ================= SETTINGS ================= */
 function renderSettings(){
+  const displayName = getUserFullName();
+  const email = currentUser ? (currentUser.email || '') : 'Gost — lokalno';
+  const accountBadge = currentUser ? 'Povezan' : 'Gost';
+
   let subList = '';
   if(state.subscriptions.length === 0){
     subList = '<div class="empty">Nema dodanih pretplata.</div>';
@@ -941,53 +1594,124 @@ function renderSettings(){
     });
   }
 
-  const L = state.loan;
-  const loanForm = L ? `
-    <div class="loan-grid" style="margin-bottom:14px">
-      <div class="loan-stat"><div class="lbl">Preostalo</div><div class="val rose">${eur(L.remaining)}</div></div>
-      <div class="loan-stat"><div class="lbl">Rata</div><div class="val">${eur(L.annuity)}</div></div>
-      <div class="loan-stat"><div class="lbl">Rate</div><div class="val">${L.installmentsRemaining ?? '—'}${L.installmentsTotal?` / ${L.installmentsTotal}`:''}</div></div>
-      <div class="loan-stat"><div class="lbl">Sljedeća</div><div class="val" style="font-size:14px">${fmtMonthHR(L.nextPaymentDate)}</div></div>
-      <div class="loan-stat"><div class="lbl">Auto rata</div><div class="val" style="font-size:14px">${L.autoMonthly?'✅ Uklj.':'⏸ Isklj.'}</div></div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-      <button class="btn-add ghost" onclick="editLoan()">✏️ Uredi</button>
-      <button class="btn-add red" onclick="clearLoan()">🗑 Obriši kredit</button>
-    </div>
-  ` : '';
+  const loans = getLoans();
+  const editingId = window._editingLoanId;
+  const editingLoan = (editingId && editingId !== 'new') ? getLoan(editingId) : null;
+  const showLoanForm = editingId !== undefined && editingId !== null;
+  let loansListHtml = '';
+  if(loans.length === 0){
+    loansListHtml = '<div class="empty">Nema dodanih kredita.</div>';
+  } else {
+    loansListHtml = loans.map(loan => {
+      const paid = loan.originalTotal - loan.remaining;
+      const pct = loan.originalTotal > 0 ? (paid / loan.originalTotal) * 100 : 0;
+      return `<div class="loan-item">
+        <div class="li-info">
+          <div class="li-name">${escapeHtml(loan.name)}</div>
+          <div class="li-meta">${eur(loan.annuity)}/mj · preostalo ${eur(loan.remaining)} (${pct.toFixed(0)}%) · ${fmtMonthHR(loan.nextPaymentDate)}</div>
+        </div>
+        <div class="li-flag ${loan.autoMonthly?'on':'off'}">${loan.autoMonthly?'🔁 auto':'⏸ ručno'}</div>
+        <button class="sbtn" onclick="editLoan('${loan.id}')" title="Uredi">✏️</button>
+        <button class="sbtn" onclick="clearLoan('${loan.id}')" title="Obriši">×</button>
+      </div>`;
+    }).join('');
+  }
 
-  const showLoanForm = !L || window._editingLoan;
-  const today = new Date();
-  const defMonth = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(Math.min(28, today.getDate())).padStart(2,'0')}`;
-  const lf = showLoanForm ? `
-    <h3>${L?'Uredi kredit':'Postavi kredit'}</h3>
-    <form class="grid-form" onsubmit="saveLoan(event)">
-      <div class="field f-wide"><label>Naziv</label><input name="name" placeholder="npr. Stambeni kredit" value="${L?escapeHtml(L.name):''}" required></div>
-      <div class="field"><label>Ukupno (€)</label><input name="originalTotal" inputmode="decimal" placeholder="0,00" value="${L?L.originalTotal:''}" required></div>
-      <div class="field"><label>Preostalo (€)</label><input name="remaining" inputmode="decimal" placeholder="0,00" value="${L?L.remaining:''}" required></div>
-      <div class="field"><label>Mjesečna rata (€)</label><input name="annuity" inputmode="decimal" placeholder="0,00" value="${L?L.annuity:''}" required></div>
-      <div class="field"><label>Sljedeća rata</label><input type="date" name="nextPaymentDate" value="${L&&L.nextPaymentDate?L.nextPaymentDate:defMonth}"></div>
-      <div class="field"><label>Ukupno rata <span class="opt">(opcionalno)</span></label><input name="installmentsTotal" inputmode="numeric" placeholder="auto" value="${L&&L.installmentsTotal?L.installmentsTotal:''}"></div>
-      <div class="field"><label>Preostalo rata <span class="opt">(opcionalno)</span></label><input name="installmentsRemaining" inputmode="numeric" placeholder="auto" value="${L&&L.installmentsRemaining!=null?L.installmentsRemaining:''}"></div>
-      <div class="field f-wide" style="flex-direction:row;align-items:center;gap:8px">
-        <input type="checkbox" name="autoMonthly" ${(!L||L.autoMonthly)?'checked':''} id="autoM">
-        <label for="autoM" style="padding:0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-muted);font-weight:500;cursor:pointer">Automatski upiši redovnu ratu svaki mjesec</label>
-      </div>
-      <div class="field f-wide">
-        <div class="hint">💡 Ako ostaviš prazno polje „Ukupno rata" i „Preostalo rata", izračunat će se iz <b>preostalog duga ÷ mjesečne rate</b>.</div>
-      </div>
-      <div class="field f-btn">
-        <label>&nbsp;</label>
-        <button class="btn-add" type="submit">${L?'Ažuriraj':'Postavi'}</button>
-      </div>
-    </form>
-  ` : '';
+  let lf = '';
+  if(showLoanForm){
+    const L = editingLoan;
+    const today = new Date();
+    const defMonth = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(Math.min(28, today.getDate())).padStart(2,'0')}`;
+    lf = `
+      <h3>${L ? 'Uredi kredit' : 'Novi kredit'}</h3>
+      <form class="grid-form" onsubmit="saveLoan(event)">
+        <input type="hidden" name="loanId" value="${L ? L.id : ''}">
+        <div class="field f-wide"><label>Naziv</label><input name="name" placeholder="npr. Stambeni kredit" value="${L?escapeHtml(L.name):''}" required></div>
+        <div class="field"><label>Ukupno (€)</label><input name="originalTotal" inputmode="decimal" placeholder="0,00" value="${L?L.originalTotal:''}" required></div>
+        <div class="field"><label>Preostalo (€)</label><input name="remaining" inputmode="decimal" placeholder="0,00" value="${L?L.remaining:''}" required></div>
+        <div class="field"><label>Mjesečna rata (€)</label><input name="annuity" inputmode="decimal" placeholder="0,00" value="${L?L.annuity:''}" required></div>
+        <div class="field"><label>Sljedeća rata</label><input type="date" name="nextPaymentDate" value="${L&&L.nextPaymentDate?L.nextPaymentDate:defMonth}"></div>
+        <div class="field"><label>Ukupno rata <span class="opt">(opcionalno)</span></label><input name="installmentsTotal" inputmode="numeric" placeholder="auto" value="${L&&L.installmentsTotal?L.installmentsTotal:''}"></div>
+        <div class="field"><label>Preostalo rata <span class="opt">(opcionalno)</span></label><input name="installmentsRemaining" inputmode="numeric" placeholder="auto" value="${L&&L.installmentsRemaining!=null?L.installmentsRemaining:''}"></div>
+        <div class="field f-wide" style="flex-direction:row;align-items:center;gap:8px">
+          <input type="checkbox" name="autoMonthly" ${(!L||L.autoMonthly)?'checked':''} id="autoM">
+          <label for="autoM" style="padding:0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-muted);font-weight:500;cursor:pointer">Automatski upiši redovnu ratu svaki mjesec</label>
+        </div>
+        <div class="field f-wide">
+          <div class="hint">💡 Ako ostaviš prazno „Ukupno rata" i „Preostalo rata", izračunat će se iz <b>preostalog duga ÷ mjesečne rate</b>.</div>
+        </div>
+        <div class="field f-btn"><label>&nbsp;</label><button class="btn-add" type="submit">${L?'Ažuriraj':'Dodaj'}</button></div>
+      </form>
+      <button class="btn-add ghost" style="margin-top:10px" onclick="cancelLoanEdit()">Otkaži</button>
+    `;
+  }
+
+  const themeSeg = `
+    <div class="theme-seg">
+      <button data-t="light" onclick="setTheme('light')" class="${themePref==='light'?'active':''}"><span>☀️</span><span class="lbl">Svijetla</span></button>
+      <button data-t="dark" onclick="setTheme('dark')" class="${themePref==='dark'?'active':''}"><span>🌙</span><span class="lbl">Tamna</span></button>
+      <button data-t="system" onclick="setTheme('system')" class="${themePref==='system'?'active':''}"><span>🌗</span><span class="lbl">Sustav</span></button>
+    </div>`;
 
   return `
     <div class="panel">
+      <h2>👤 Račun</h2>
+      <div class="settings-account">
+        <div class="sa-avatar">${(getUserDisplayName()[0] || 'G').toUpperCase()}</div>
+        <div class="sa-info">
+          <div class="sa-name">${escapeHtml(displayName)}</div>
+          <div class="sa-meta">${escapeHtml(email)}</div>
+        </div>
+        <div class="sa-badge ${currentUser?'pro':'guest'}">${accountBadge}</div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="sr-label">☁️ Sinkronizacija</div>
+          <div class="sr-desc">${currentUser ? (lastCloudSave ? 'Zadnja: ' + new Date(lastCloudSave).toLocaleString('hr-HR') : 'Spremno za sinkronizaciju') : 'Nedostupno u gost modu'}</div>
+        </div>
+        <div class="sr-ctrl">
+          ${currentUser
+            ? `<button class="btn-add ghost" onclick="forceSyncNow()">🔄 Sinkroniziraj</button>`
+            : `<button class="btn-add" onclick="handleLogout()">🔐 Prijavi se</button>`}
+        </div>
+      </div>
+      ${currentUser ? `
+      <div class="settings-row">
+        <div>
+          <div class="sr-label">🚪 Odjava</div>
+          <div class="sr-desc">Podaci ostaju u cloudu</div>
+        </div>
+        <div class="sr-ctrl"><button class="btn-add ghost" onclick="handleLogout()">Odjavi se</button></div>
+      </div>` : ''}
+    </div>
+
+    <div class="panel">
+      <h2>⚙️ Opće postavke</h2>
+      <div class="settings-row">
+        <div>
+          <div class="sr-label">🎨 Tema prikaza</div>
+          <div class="sr-desc">Svijetla, tamna ili prema sustavu</div>
+        </div>
+        <div class="sr-ctrl">${themeSeg}</div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="sr-label">🌐 Jezik</div>
+          <div class="sr-desc">Jezik sučelja (više jezika uskoro)</div>
+        </div>
+        <div class="sr-ctrl">
+          <select class="lang-select" disabled>
+            <option>🇭🇷 Hrvatski</option>
+            <option>🇬🇧 English (uskoro)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
       <h2>🔁 Ponavljajuće pretplate</h2>
       <p style="font-size:12px;color:var(--text-dim);margin-bottom:14px;line-height:1.5">
-        Pretplate se <b>automatski upisuju</b> u mjesec kad ga prvi put otvoriš, i u tekući mjesec pri pokretanju aplikacije.
+        Pretplate se <b>automatski upisuju</b> u mjesec kad ga prvi put otvoriš.
       </p>
       <div class="sub-list">${subList}</div>
       <h3>Dodaj novu pretplatu</h3>
@@ -995,9 +1719,7 @@ function renderSettings(){
         <div class="field f-wide"><label>Naziv</label><input name="name" placeholder="npr. Netflix" required autocomplete="off"></div>
         <div class="field"><label>Iznos (€)</label><input name="amount" inputmode="decimal" placeholder="0,00" required autocomplete="off"></div>
         <div class="field"><label>Kategorija</label>
-          <select name="category">
-            ${CATS.rashod.map(c=>`<option ${c==='Pretplate'?'selected':''}>${c}</option>`).join('')}
-          </select>
+          <select name="category">${CATS.rashod.map(c=>`<option ${c==='Pretplate'?'selected':''}>${c}</option>`).join('')}</select>
         </div>
         <div class="field"><label>Ponavljanje</label>
           <select name="intervalMonths">
@@ -1014,15 +1736,16 @@ function renderSettings(){
     </div>
 
     <div class="panel">
-      <h2>🏦 Kredit</h2>
-      ${loanForm}
+      <h2>🏦 Krediti (${loans.length})</h2>
+      <div style="margin-bottom:12px">${loansListHtml}</div>
+      ${!showLoanForm ? `<button class="btn-add" onclick="addNewLoan()">+ Dodaj kredit</button>` : ''}
       ${lf}
     </div>
 
     <div class="panel">
       <h2>💾 Podaci</h2>
       <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">
-        Redovno radi backup — spremi JSON datoteku kao sigurnosnu kopiju. Možeš ju uvesti na bilo kojem uređaju.
+        Backup je koristan kao sigurnosna kopija ili za prijenos na drugi račun.
       </p>
       <div class="toolbar" style="justify-content:flex-start">
         <button onclick="backupJSON()">💾 Backup (JSON)</button>
@@ -1035,7 +1758,7 @@ function renderSettings(){
     <div class="panel danger-zone">
       <h2>⚠️ Opasna zona</h2>
       <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.5">
-        Resetiraj sve podatke i kreni od nule. Ovo <b>trajno briše</b> sve transakcije, pretplate, kredit i postavke.
+        Resetiraj sve podatke i kreni od nule. Ovo <b>trajno briše</b> sve transakcije, pretplate, kredite i postavke.${currentUser ? ' Briše i podatke iz clouda.' : ''}
         <b>Prvo napravi Backup!</b>
       </p>
       <button class="btn-add red" onclick="resetAll()">🚨 Resetiraj sve podatke</button>
@@ -1045,8 +1768,8 @@ function renderSettings(){
 /* ================= AKCIJE ================= */
 function go(v){
   currentView = v;
-  window._editingLoan = false;
-  ensureLoanPayments(); // provjeri zakašnjele auto-rate (u slučaju promjene datuma)
+  window._editingLoanId = undefined;
+  ensureLoanPayments();
   render();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1060,17 +1783,13 @@ function quickAdd(type, category, inputId){
   if(!inp) return;
   const amount = parseAmount(inp.value);
   if(!amount){ inp.focus(); return; }
-
   const arr = getTx(state.year,m);
   arr.push({ id: uid(), date: defaultDate(m), desc: category, amount, category, type });
   setTx(state.year,m,arr);
-
-  // Ako je prihod, provjeri auto-ratu
   if(type === 'prihod'){
     ensureLoanPayments();
-    applyLoanMonthly(state.year, m);
+    for(const loan of getLoans()) applyLoanMonthlyForLoan(loan, state.year, m);
   }
-
   inp.value = '';
   render();
   setTimeout(()=>{ const el = document.getElementById(inputId); if(el) el.focus(); }, 40);
@@ -1081,7 +1800,6 @@ function addTxn(e,m){
   const f = e.target;
   const amount = parseAmount(f.amount.value);
   if(!amount){ f.amount.focus(); return; }
-
   const arr = getTx(state.year,m);
   arr.push({
     id: uid(),
@@ -1092,12 +1810,10 @@ function addTxn(e,m){
     type: formType
   });
   setTx(state.year,m,arr);
-
   if(formType === 'prihod'){
     ensureLoanPayments();
-    applyLoanMonthly(state.year, m);
+    for(const loan of getLoans()) applyLoanMonthlyForLoan(loan, state.year, m);
   }
-
   f.reset();
   f.date.value = defaultDate(m);
   render();
@@ -1112,7 +1828,7 @@ function delTxn(id){
   render();
 }
 
-/* --- Pretplate --- */
+/* Pretplate */
 function addSub(e){
   e.preventDefault();
   const f = e.target;
@@ -1139,153 +1855,130 @@ function toggleSub(id){
   save(); render();
 }
 
-/* --- Kredit --- */
+/* Krediti */
+function addNewLoan(){ window._editingLoanId = 'new'; render(); }
+function editLoan(id){ window._editingLoanId = id; render(); }
+function cancelLoanEdit(){ window._editingLoanId = undefined; render(); }
+
 function saveLoan(e){
   e.preventDefault();
   const f = e.target;
+  const loanId = f.loanId.value || '';
   const orig = parseAmount(f.originalTotal.value);
   const rem = parseAmount(f.remaining.value);
   const ann = parseAmount(f.annuity.value);
   if(!orig || !ann || rem < 0) return;
-
   const remCalc = Math.max(1, Math.ceil(rem / ann));
   const remI = parseInt(f.installmentsRemaining.value, 10) || remCalc;
   const tot = parseInt(f.installmentsTotal.value, 10) || remI;
-
   const nextDate = f.nextPaymentDate.value || new Date().toISOString().slice(0,10);
-
-  if(!state.loan){
-    state.loan = { payments: [] };
-  }
-  state.loan.name = f.name.value.trim() || 'Kredit';
-  state.loan.originalTotal = orig;
-  state.loan.remaining = Math.max(0, rem);
-  state.loan.annuity = ann;
-  state.loan.installmentsTotal = tot;
-  state.loan.installmentsRemaining = Math.max(0, remI);
-  state.loan.nextPaymentDate = nextDate;
-  state.loan.autoMonthly = f.autoMonthly.checked;
-  delete state.loan.startDate;
-  delete state.loan.appliedMonths;
-
-  window._editingLoan = false;
+  let loan;
+  if(loanId){ loan = getLoan(loanId); if(!loan) return; }
+  else { loan = { id: 'loan_' + Date.now() + '_' + Math.random().toString(36).slice(2,5) }; state.loans.push(loan); }
+  loan.name = f.name.value.trim() || 'Kredit';
+  loan.originalTotal = orig;
+  loan.remaining = Math.max(0, rem);
+  loan.annuity = ann;
+  loan.installmentsTotal = tot;
+  loan.installmentsRemaining = Math.max(0, remI);
+  loan.nextPaymentDate = nextDate;
+  loan.autoMonthly = f.autoMonthly.checked;
+  delete loan.startDate;
+  delete loan.appliedMonths;
+  window._editingLoanId = undefined;
   save();
-  ensureLoanPayments(); // odmah primijeni eventualne zakašnjele rate
+  ensureLoanPayments();
   render();
 }
-function editLoan(){ window._editingLoan = true; render(); }
-function clearLoan(){
-  if(!confirm('Obrisati podatke o kreditu? Postojeće transakcije s kategorijom Kredit ostaju.')) return;
-  state.loan = null;
+
+function clearLoan(id){
+  const loan = getLoan(id);
+  if(!loan) return;
+  if(!confirm(`Obrisati kredit „${loan.name}"?\n\nPostojeće transakcije ostaju.`)) return;
+  state.loans = state.loans.filter(l => l.id !== id);
+  const ui = getLoansUI();
+  delete ui[id];
+  localStorage.setItem(LOANS_UI_KEY, JSON.stringify(ui));
   save(); render();
 }
 
-// REDOVNA RATA — samo za tekući stvarni mjesec
-function payRegular(){
-  const L = state.loan;
+function payRegular(loanId){
+  const L = getLoan(loanId);
   if(!L) return;
-  if(L.autoMonthly){
-    alert('Automatska rata je uključena. Isključi ju u „Više" ako želiš ručno uplaćivati.');
-    return;
-  }
-  if(getRegularPaymentThisMonth()){
-    alert('Rata za ovaj mjesec je već uplaćena.');
-    return;
-  }
+  if(L.autoMonthly){ alert('Automatska rata je uključena.'); return; }
+  if(getRegularPaymentForLoanThisMonth(loanId)){ alert('Rata za ovaj mjesec je već uplaćena.'); return; }
   const now = new Date();
   const ym = mKey(now.getFullYear(), now.getMonth());
   const amount = Math.min(L.annuity, L.remaining);
   if(amount <= 0){ alert('Kredit je već otplaćen.'); return; }
-
   const monthName = MONTHS[now.getMonth()];
   const nextAfter = L.nextPaymentDate ? fmtMonthHR(addMonth(L.nextPaymentDate)) : '—';
-  const msg = `Uplati redovnu ratu za ${monthName} ${now.getFullYear()}?\n\nIznos: ${eur(amount)}\n\nNakon uplate:\n• Preostalo: ${eur(Math.max(0, L.remaining - amount))}\n• Sljedeća rata: ${nextAfter}`;
-  if(!confirm(msg)) return;
-
+  if(!confirm(`Uplati redovnu ratu za ${monthName} ${now.getFullYear()}?\n\nKredit: ${L.name}\nIznos: ${eur(amount)}\n\nNakon uplate:\n• Preostalo: ${eur(Math.max(0, L.remaining - amount))}\n• Sljedeća rata: ${nextAfter}`)) return;
   const day = Math.min(28, Math.max(1, now.getDate()));
   const date = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   const arr = state.txns[ym] = state.txns[ym] || [];
-  arr.push({ id: uid(), date, desc: 'Kredit — redovna rata', amount, category: LOAN_CAT, type: 'rashod', loanId: 'main' });
-
+  arr.push({ id: uid(), date, desc: `${L.name} — redovna rata`, amount, category: LOAN_CAT, type: 'rashod', loanId: L.id });
   L.remaining = Math.max(0, L.remaining - amount);
   if(L.installmentsRemaining != null && L.installmentsRemaining > 0) L.installmentsRemaining--;
   if(L.nextPaymentDate) L.nextPaymentDate = addMonth(L.nextPaymentDate);
-  L.payments = L.payments || [];
-  L.payments.push({ id: uid(), date, amount, type: 'regular', ym });
-  save();
-  render();
+  save(); render();
 }
 
-// PONIŠTI uplatu redovne rate za tekući mjesec
-function undoRegularPayment(){
-  const L = state.loan;
+function undoRegularPayment(loanId){
+  const L = getLoan(loanId);
   if(!L) return;
-  const existing = getRegularPaymentThisMonth();
+  const existing = getRegularPaymentForLoanThisMonth(loanId);
   if(!existing){ alert('Nema uplaćene rate za ovaj mjesec.'); return; }
   const now = new Date();
   const monthName = MONTHS[now.getMonth()];
-  const msg = `Poništiti uplatu redovne rate za ${monthName}?\n\nIznos: ${eur(existing.amount)}\n\n• Transakcija će biti obrisana\n• Dug će se vratiti na ${eur(L.remaining + existing.amount)}\n• Sljedeća rata: ${L.nextPaymentDate ? fmtMonthHR(subMonth(L.nextPaymentDate)) : '—'}`;
-  if(!confirm(msg)) return;
-
+  if(!confirm(`Poništiti uplatu redovne rate za ${monthName}?\n\nIznos: ${eur(existing.amount)}\n• Dug: ${eur(L.remaining + existing.amount)}\n• Sljedeća: ${L.nextPaymentDate ? fmtMonthHR(subMonth(L.nextPaymentDate)) : '—'}`)) return;
   const ym = mKey(now.getFullYear(), now.getMonth());
   state.txns[ym] = (state.txns[ym] || []).filter(t => t.id !== existing.id);
-
   L.remaining = (L.remaining || 0) + existing.amount;
   if(L.installmentsRemaining != null) L.installmentsRemaining++;
   if(L.nextPaymentDate) L.nextPaymentDate = subMonth(L.nextPaymentDate);
-  L.payments = (L.payments || []).filter(p => p.id !== existing.id);
-  save();
-  render();
-  alert('Uplata je poništena. Dug i broj rata vraćeni.');
+  save(); render();
 }
 
-// IZVANREDNA uplata — ide u trenutni pregledani mjesec (ili stvarni ako smo u Pregledu)
-function payExtra(){
-  const L = state.loan;
+function payExtra(loanId){
+  const L = getLoan(loanId);
   if(!L) return;
-  const inp = prompt(`Trenutno preostalo: ${eur(L.remaining)}\n\nUnesi iznos izvanredne uplate (€):`);
+  const inp = prompt(`${L.name}\n\nTrenutno preostalo: ${eur(L.remaining)}\n\nUnesi iznos izvanredne uplate (€):`);
   if(inp === null) return;
   const amount = parseAmount(inp);
   if(!amount || amount <= 0) return;
   if(amount > L.remaining){
-    if(!confirm(`Iznos (${eur(amount)}) je veći od preostalog duga (${eur(L.remaining)}).\n\nNastaviti? (Kredit će se smatrati otplaćenim.)`)) return;
+    if(!confirm(`Iznos (${eur(amount)}) je veći od preostalog duga (${eur(L.remaining)}).\n\nNastaviti?`)) return;
   }
   const { y, m } = extraPaymentMonth();
   const ym = mKey(y, m);
   const day = Math.min(28, Math.max(1, new Date().getDate()));
   const date = `${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
   const actual = Math.min(amount, L.remaining);
-
   const arr = state.txns[ym] = state.txns[ym] || [];
-  arr.push({ id: uid(), date, desc: 'Kredit — izvanredna uplata', amount: actual, category: LOAN_CAT, type: 'rashod', loanId: 'main' });
-
+  arr.push({ id: uid(), date, desc: `${L.name} — izvanredna uplata`, amount: actual, category: LOAN_CAT, type: 'rashod', loanId: L.id });
   L.remaining = Math.max(0, L.remaining - actual);
-  L.payments = L.payments || [];
-  L.payments.push({ id: uid(), date, amount: actual, type: 'extra', ym });
-  save();
-  render();
+  save(); render();
 }
 
-/* --- Reset --- */
+/* Reset */
 function resetAll(){
-  if(!confirm('⚠️ PAŽNJA!\n\nOvo će trajno obrisati SVE podatke:\n• Sve transakcije\n• Sve pretplate\n• Podatke o kreditu\n• Sve postavke\n\nJesi li siguran da želiš nastaviti?')) return;
-  if(!confirm('JESI LI POTPUNO SIGURAN?\n\nOva radnja se NE MOŽE poništiti i svi podaci bit će izgubljeni zauvijek.\n\nPreporučujemo da prvo napraviš Backup!')){
-    return;
-  }
+  const extra = currentUser ? '\n• Podatke iz clouda' : '';
+  if(!confirm(`⚠️ PAŽNJA!\n\nOvo će trajno obrisati SVE podatke:\n• Sve transakcije\n• Sve pretplate\n• Sve kredite\n• Sve postavke${extra}\n\nJesi li siguran?`)) return;
+  if(!confirm('JESI LI POTPUNO SIGURAN?\n\nOva radnja se NE MOŽE poništiti.')) return;
   const t = prompt('Za konačnu potvrdu upiši velikim slovima: OBRIŠI');
-  if(t !== 'OBRIŠI'){
-    alert('Nisi upisao ispravnu riječ. Reset otkazan.');
-    return;
-  }
+  if(t !== 'OBRIŠI'){ alert('Nisi upisao ispravnu riječ. Reset otkazan.'); return; }
   localStorage.removeItem(LS_KEY);
-  state = { year: new Date().getFullYear(), txns: {}, subscriptions: [], loan: null };
+  localStorage.removeItem(LOANS_UI_KEY);
+  state = defaultState();
   save();
   currentView = 'pregled';
+  window._editingLoanId = undefined;
   render();
-  alert('Svi podaci su obrisani. Kreni ispočetka.');
+  alert('Svi podaci su obrisani.');
 }
 
-/* ================= EXPORT / IMPORT ================= */
+/* Export / Import */
 function exportCSV(){
   let csv = 'Datum,Mjesec,Tip,Kategorija,Opis,Iznos (EUR)\n';
   MONTHS.forEach((name,i)=>{
@@ -1317,7 +2010,17 @@ function restoreJSON(e){
       const data = JSON.parse(ev.target.result);
       if(!data.txns) throw new Error('Neispravna datoteka');
       if(confirm('Ovo će zamijeniti sve trenutne podatke. Nastaviti?')){
-        state = Object.assign({year:new Date().getFullYear(), txns:{}, subscriptions:[], loan:null}, data);
+        state = Object.assign(defaultState(), data);
+        if(state.loan && !state.loans){
+          const newId = 'loan_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
+          const migrated = Object.assign({ id: newId }, state.loan);
+          state.loans = [migrated];
+          delete state.loan;
+          for(const key in state.txns){ for(const t of state.txns[key]) if(t.loanId === 'main') t.loanId = newId; }
+        }
+        if(!state.loans) state.loans = [];
+        if(!state.period) state.period = { mode: 'year' };
+        state.loans.forEach((l, i) => { if(!l.id) l.id = 'loan_' + i + '_' + Date.now(); });
         save(); render();
       }
     }catch(err){ alert('Greška: '+err.message); }
@@ -1326,20 +2029,49 @@ function restoreJSON(e){
   e.target.value = '';
 }
 
-/* ================= START ================= */
-load();
-applyTheme();
+/* ================= BOOT ================= */
+async function boot(){
+  try{
+    applyTheme();
+    showLoading();
 
-const now = new Date();
-currentView = (now.getFullYear() === state.year) ? now.getMonth() : 'pregled';
+    sbClient = initSupabase();
+    loadLocal();
 
-// Pretplate — samo za tekući stvarni mjesec
-applySubscriptions(now.getFullYear(), now.getMonth());
+    if(sbClient){
+      try{
+        const { data: { session } } = await sbClient.auth.getSession();
+        if(session && session.user){
+          currentUser = session.user;
+          await loadFromCloud();
+          sbClient.auth.onAuthStateChange((event, s) => {
+            if(event === 'SIGNED_OUT'){ currentUser = null; showAuthScreen(); }
+            else if(event === 'SIGNED_IN' && s?.user){ currentUser = s.user; }
+            else if(event === 'TOKEN_REFRESHED' && s?.user){ currentUser = s.user; }
+          });
+          startApp();
+          return;
+        }
+      }catch(e){ console.error('Auth check failed:', e); }
+    }
 
-// Kredit — provjeri SVE zakašnjele rate do stvarnog trenutnog mjeseca
-ensureLoanPayments();
+    if(localStorage.getItem(GUEST_KEY) === '1'){
+      isGuestMode = true;
+      startApp();
+      return;
+    }
 
-render();
+    showAuthScreen();
+  }catch(err){
+    console.error('BOOT FATAL:', err);
+    document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:#fff;background:#111;min-height:100vh"><h2 style="color:#f87171">Greška pri pokretanju</h2><pre style="background:#222;padding:20px;border-radius:8px;overflow:auto;margin-top:20px">' + (err && err.stack ? err.stack : String(err)) + '</pre></div>';
+  }
+}
+
+window.addEventListener('error', (e) => console.error('GLOBAL:', e.error || e.message));
+window.addEventListener('unhandledrejection', (e) => console.error('UNHANDLED:', e.reason));
+
+boot();
 </script>
 </body>
 </html>
