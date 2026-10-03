@@ -50,10 +50,18 @@
   h1 span{color:var(--primary)}
   .header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
+  .more-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);height:40px;padding:0 14px;border-radius:12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;transition:.15s}
+  .more-btn:hover{border-color:var(--primary);color:var(--primary)}
+  .more-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .more-btn .more-ico{font-size:15px;line-height:1}
+
+  .user-menu{position:relative}
   .user-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);height:40px;padding:0 12px 0 6px;border-radius:12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;font-family:inherit;font-weight:600;transition:.15s;max-width:220px}
   .user-btn:hover{border-color:var(--primary);box-shadow:0 2px 8px rgba(99,102,241,.1)}
-  .user-btn .u-avatar{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
-  .user-btn .u-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px}
+  .user-btn .u-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+  .user-btn .u-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+  .user-btn .u-caret{font-size:10px;color:var(--text-dim);margin-left:2px;transition:transform .15s}
+  .user-menu.open .u-caret{transform:rotate(180deg)}
   .user-btn .u-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-right:2px}
   .user-btn .u-status.synced{background:var(--green)}
   .user-btn .u-status.saving{background:var(--amber);animation:pulse 1.2s infinite}
@@ -61,17 +69,81 @@
   .user-btn .u-status.guest{background:var(--text-dim)}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+  .user-dropdown{
+    position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    box-shadow:0 12px 40px rgba(0,0,0,.15);
+    min-width:290px;padding:6px;z-index:200;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:.15s ease;
+  }
+  [data-theme="dark"] .user-dropdown{box-shadow:0 12px 40px rgba(0,0,0,.6)}
+  .user-menu.open .user-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+  @media(max-width:520px){.user-dropdown{position:fixed;top:70px;left:16px;right:16px;min-width:auto}}
+
+  .ud-header{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--border-soft);margin-bottom:6px}
+  .ud-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0}
+  .ud-info{flex:1;min-width:0}
+  .ud-name{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ud-email{font-size:11px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+  .ud-badge{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 7px;border-radius:5px}
+  .ud-badge.pro{background:rgba(16,185,129,.15);color:var(--green)}
+  .ud-badge.guest{background:var(--surface-3);color:var(--text-dim)}
+  .ud-section{padding:10px 12px 6px}
+  .ud-section-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:700;margin-bottom:8px}
+  .ud-theme{display:flex;gap:3px;background:var(--surface-3);padding:3px;border-radius:9px}
+  .ud-theme button{flex:1;padding:7px 6px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;justify-content:center;gap:4px;transition:.15s}
+  .ud-theme button:hover{color:var(--text)}
+  .ud-theme button.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .ud-lang-select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:12px;font-weight:600;color:var(--text);cursor:pointer}
+  .ud-lang-select:disabled{opacity:.55;cursor:not-allowed}
+  .ud-divider{height:1px;background:var(--border-soft);margin:6px 0}
+  .ud-item{width:100%;text-align:left;background:none;border:none;padding:11px 12px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--text);display:flex;align-items:center;gap:11px;transition:.12s;font-weight:500}
+  .ud-item:hover{background:var(--surface-3)}
+  .ud-item .ud-ico{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+  .ud-item.danger{color:var(--red)}
+  .ud-item.danger:hover{background:rgba(239,68,68,.1)}
+
   .year{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px}
   .year button{background:none;border:none;font-size:16px;cursor:pointer;padding:4px 10px;border-radius:6px;color:var(--text-muted);font-family:inherit}
   .year button:hover{background:var(--surface-3)}
   .year b{min-width:52px;text-align:center;font-size:15px}
 
-  .tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:thin}
-  .tabs::-webkit-scrollbar{height:6px}
-  .tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-  .tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;transition:.15s;font-family:inherit}
-  .tab:hover{border-color:var(--primary)}
-  .tab.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 8px rgba(99,102,241,.3)}
+  /* --- NAV (Pregled + Month dropdown) --- */
+  .tabs-nav{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  .nav-btn{padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;display:flex;align-items:center;gap:8px;transition:.15s;white-space:nowrap}
+  .nav-btn:hover{border-color:var(--primary);color:var(--primary)}
+  .nav-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 8px rgba(99,102,241,.3)}
+  .nav-btn .caret{font-size:9px;opacity:.7;transition:transform .2s;margin-left:2px}
+  .month-menu{position:relative}
+  .month-menu.open .nav-btn .caret{transform:rotate(180deg)}
+  .month-menu.open .nav-btn{border-color:var(--primary);color:var(--primary)}
+  .month-menu.open .nav-btn.active{color:#fff}
+  .month-list{
+    position:absolute;top:calc(100% + 8px);left:0;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.15);
+    padding:8px;z-index:150;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
+    min-width:300px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:.15s ease;
+  }
+  [data-theme="dark"] .month-list{box-shadow:0 12px 40px rgba(0,0,0,.6)}
+  .month-menu.open .month-list{opacity:1;visibility:visible;transform:translateY(0)}
+  .month-item{
+    background:none;border:none;padding:10px 6px;border-radius:9px;
+    cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;
+    color:var(--text);text-align:center;transition:.12s;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .month-item:hover{background:var(--surface-3)}
+  .month-item.active{background:var(--primary);color:#fff}
+  .month-item.active:hover{background:var(--primary-hover)}
+  @media(max-width:480px){
+    .month-list{min-width:260px;padding:6px;grid-template-columns:repeat(3,1fr)}
+    .month-item{padding:9px 4px;font-size:11px}
+  }
 
   /* AUTH */
   .auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
@@ -82,19 +154,16 @@
   .auth-tabs{display:flex;background:var(--surface-3);border-radius:12px;padding:4px;margin-bottom:22px}
   .auth-tab{flex:1;padding:10px;border-radius:9px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;transition:.15s}
   .auth-tab.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-
   .auth-form{display:flex;flex-direction:column;gap:14px;text-align:left}
   .auth-form .field{margin-bottom:0}
   .auth-form input{padding:12px 14px;font-size:14px}
   .auth-form .row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media(max-width:440px){.auth-form .row-2{grid-template-columns:1fr}}
   .auth-submit{margin-top:4px;padding:13px;font-size:14px}
-
   .pw-wrap{position:relative}
   .pw-wrap input{padding-right:44px}
   .pw-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-dim);padding:6px 8px;border-radius:6px;font-size:16px;line-height:1;font-family:inherit}
   .pw-toggle:hover{color:var(--primary);background:var(--surface-3)}
-
   .pw-requirements{display:flex;flex-direction:column;gap:5px;margin-top:8px;font-size:12px}
   .pw-req{display:flex;align-items:center;gap:8px;color:var(--text-dim);transition:color .15s;padding-left:2px}
   .pw-req .pw-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;font-size:10px;font-weight:700;border:1.5px solid var(--border);color:var(--text-dim);transition:.15s}
@@ -102,17 +171,14 @@
   .pw-req.valid .pw-icon{background:var(--green);border-color:var(--green);color:#fff}
   .pw-req.invalid{color:var(--red)}
   .pw-req.invalid .pw-icon{background:transparent;border-color:var(--red);color:var(--red)}
-
   .auth-msg{font-size:13px;padding:12px 14px;border-radius:10px;margin-top:14px;line-height:1.5;display:none}
   .auth-msg.error{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2);display:block}
   .auth-msg.success{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2);display:block}
   .auth-msg.info{background:rgba(99,102,241,.1);color:var(--primary);border:1px solid rgba(99,102,241,.2);display:block}
-
   .auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0 16px;color:var(--text-dim);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
   .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
   .auth-guest{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:12px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;width:100%;transition:.15s}
   .auth-guest:hover{border-color:var(--primary);color:var(--primary)}
-
   .auth-warning{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.25);padding:12px 14px;border-radius:10px;font-size:12px;line-height:1.5;margin-bottom:16px;text-align:left}
   .auth-warning code{background:rgba(245,158,11,.2);padding:1px 5px;border-radius:3px;font-size:11px}
 
@@ -121,7 +187,42 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .loading-txt{color:var(--text-dim);font-size:13px}
 
-  /* PERIOD */
+  /* SETTINGS MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,17,21,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:500;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto;opacity:0;visibility:hidden;transition:.2s}
+  .modal-overlay.open{opacity:1;visibility:visible}
+  .modal-card{background:var(--surface);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:100%;max-width:760px;min-height:80vh;display:flex;flex-direction:column;transform:translateY(16px);transition:.2s}
+  .modal-overlay.open .modal-card{transform:translateY(0)}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border-soft);position:sticky;top:0;background:var(--surface);border-radius:20px 20px 0 0;z-index:2}
+  .modal-header h2{font-size:18px;font-weight:800;color:var(--text)}
+  .modal-close{background:var(--surface-3);border:none;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:20px;line-height:1;color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:.15s}
+  .modal-close:hover{background:rgba(239,68,68,.1);color:var(--red)}
+  .modal-body{padding:22px 24px 32px;flex:1}
+  .settings-section{margin-bottom:26px}
+  .settings-section:last-child{margin-bottom:0}
+  .settings-section h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .settings-section h3 .ss-badge{font-size:9px;padding:2px 7px;border-radius:5px;background:var(--surface-3);color:var(--text-dim);letter-spacing:.04em;text-transform:uppercase}
+  .settings-account{display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface-2);border-radius:12px}
+  .settings-account .sa-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;flex-shrink:0}
+  .settings-account .sa-info{flex:1;min-width:0}
+  .settings-account .sa-name{font-size:16px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .settings-account .sa-meta{font-size:12px;color:var(--text-dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .settings-account .sa-badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:4px 10px;border-radius:6px;white-space:nowrap}
+  .settings-account .sa-badge.pro{background:rgba(16,185,129,.15);color:var(--green)}
+  .settings-account .sa-badge.guest{background:var(--surface-3);color:var(--text-dim)}
+  .settings-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:600px){.settings-form{grid-template-columns:1fr}}
+  .settings-form .field{margin-bottom:0}
+  .settings-form .f-full{grid-column:1/-1}
+  .settings-form .f-actions{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
+  .placeholder-block{background:var(--surface-2);border:1px dashed var(--border);border-radius:12px;padding:20px;text-align:center;color:var(--text-dim);font-size:13px}
+  .placeholder-block .pb-icon{font-size:28px;display:block;margin-bottom:8px;opacity:.6}
+  .placeholder-block .pb-title{font-weight:700;color:var(--text-muted);margin-bottom:4px;font-size:13px}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--text);color:var(--surface);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:1000;opacity:0;transition:.25s;pointer-events:none;display:flex;align-items:center;gap:8px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.success{background:var(--green)}
+  .toast.error{background:var(--red)}
+
   .period-panel{background:var(--surface);border:1px solid var(--border-soft);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
   .period-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
   .period-title{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:700}
@@ -192,10 +293,10 @@
   }
   .field{display:flex;flex-direction:column;gap:4px}
   .field label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);font-weight:600;padding-left:2px}
-  .field label .opt{font-size:10px;color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0}
   input,select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:var(--surface);color:var(--text);width:100%}
   input::placeholder{color:var(--text-dim)}
   input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.18)}
+  input:disabled,select:disabled{opacity:.55;cursor:not-allowed;background:var(--surface-2)}
   input[type="checkbox"]{width:auto;padding:0}
   .toggle{display:flex;background:var(--surface-3);border-radius:10px;padding:3px}
   .toggle button{flex:1;border:none;background:none;padding:8px 4px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-muted);font-family:inherit}
@@ -276,10 +377,8 @@
   @media(max-width:540px){.loan-card-head .lc-summary{display:none}}
   .collapse-arrow{font-size:11px;color:var(--text-dim);transition:transform .2s;display:inline-block;padding:4px 6px;border-radius:6px;background:var(--surface-3)}
   .loan-card-head:hover .collapse-arrow{background:var(--surface-2);color:var(--primary)}
-
   .loan-stats-panel{background:linear-gradient(135deg,rgba(190,18,60,.04) 0%,var(--surface) 60%);border-color:rgba(190,18,60,.15)}
   .loan-stats-panel h2{color:var(--text-muted)}
-
   .loan-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
   @media(max-width:800px){.loan-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
   .loan-stat .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);font-weight:600;margin-bottom:4px}
@@ -293,7 +392,6 @@
   .loan-actions button{flex:1;min-width:160px}
   .loan-auto-info{background:rgba(99,102,241,.08);color:var(--text-muted);font-size:12px;padding:10px 12px;border-radius:9px;flex:1;min-width:200px;text-align:center;font-weight:600;border:1px solid rgba(99,102,241,.18);display:flex;align-items:center;justify-content:center;gap:6px}
   .loan-auto-info b{color:var(--primary);font-variant-numeric:tabular-nums}
-
   .per-loan-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
   .lsr-row{display:flex;align-items:center;gap:10px;font-size:13px;padding:8px 10px;background:var(--surface-2);border-radius:9px}
   .lsr-name{font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -329,34 +427,8 @@
     .grid-form .f-btn{grid-column:1/-1}
   }
 
-  .danger-zone{border-color:rgba(239,68,68,.3);background:linear-gradient(135deg,rgba(239,68,68,.05) 0%,var(--surface) 60%)}
-  .danger-zone h2{color:var(--red)}
-
-  /* SETTINGS specifično */
-  .settings-account{display:flex;align-items:center;gap:14px;padding:14px;background:var(--surface-2);border-radius:12px;margin-bottom:14px}
-  .settings-account .sa-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--purple));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0}
-  .settings-account .sa-info{flex:1;min-width:0}
-  .settings-account .sa-name{font-size:16px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .settings-account .sa-meta{font-size:12px;color:var(--text-dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .settings-account .sa-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 9px;border-radius:6px;white-space:nowrap}
-  .settings-account .sa-badge.pro{background:rgba(16,185,129,.15);color:var(--green)}
-  .settings-account .sa-badge.guest{background:var(--surface-3);color:var(--text-dim)}
-
-  .settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-soft);flex-wrap:wrap}
-  .settings-row:last-child{border-bottom:none;padding-bottom:0}
-  .settings-row:first-of-type{padding-top:0}
-  .settings-row .sr-label{font-size:13px;font-weight:600;color:var(--text)}
-  .settings-row .sr-desc{font-size:11px;color:var(--text-dim);margin-top:2px;font-weight:400}
-  .settings-row .sr-ctrl{flex-shrink:0}
-
-  .theme-seg{display:flex;gap:3px;background:var(--surface-3);padding:3px;border-radius:10px}
-  .theme-seg button{padding:7px 12px;border:none;background:transparent;border-radius:7px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:6px;transition:.15s}
-  .theme-seg button:hover{color:var(--text)}
-  .theme-seg button.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  @media(max-width:500px){.theme-seg button .lbl{display:none}}
-
-  .lang-select{padding:8px 12px;border-radius:9px;border:1px solid var(--border);background:var(--surface);font-family:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer}
-  .lang-select:disabled{opacity:.6;cursor:not-allowed}
+  .danger-zone{border:1px solid rgba(239,68,68,.3);background:linear-gradient(135deg,rgba(239,68,68,.05) 0%,var(--surface) 60%);border-radius:12px;padding:16px}
+  .danger-zone h3{color:var(--red)}
 
   .watermark{text-align:center;padding:32px 16px 20px;color:var(--text-dim);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.65}
   .watermark .diamond{color:var(--primary);margin:0 10px;font-size:10px;opacity:.7}
@@ -367,65 +439,43 @@
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loadingScreen" class="loading-screen" style="display:none">
   <div class="loading-spinner"></div>
   <div class="loading-txt">Učitavam...</div>
 </div>
 
-<!-- AUTH SCREEN -->
 <div id="authScreen" class="auth-screen" style="display:none">
   <div class="auth-card">
     <div class="auth-logo">💰 Moje <span>financije</span></div>
     <div class="auth-sub">Pristupi svojim podacima s bilo kojeg uređaja</div>
-
     <div id="cloudWarning" class="auth-warning" style="display:none">
       <b>⚠️ Cloud nije konfiguriran.</b><br>
-      Otvori HTML datoteku i zamijeni <code>SUPABASE_URL</code> i <code>SUPABASE_ANON_KEY</code> svojim vrijednostima. Do tada možeš koristiti app kao gost.
+      Otvori HTML datoteku i zamijeni <code>SUPABASE_URL</code> i <code>SUPABASE_ANON_KEY</code>. Do tada možeš kao gost.
     </div>
-
     <div class="auth-tabs">
       <button class="auth-tab active" data-authtab="login" onclick="switchAuthTab('login')">Prijava</button>
       <button class="auth-tab" data-authtab="register" onclick="switchAuthTab('register')">Registracija</button>
     </div>
-
-    <!-- LOGIN FORM -->
     <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
-      <div class="field">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Lozinka</label>
+      <div class="field"><label>Email</label><input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email"></div>
+      <div class="field"><label>Lozinka</label>
         <div class="pw-wrap">
           <input type="password" name="password" placeholder="Tvoja lozinka" required autocomplete="current-password" id="loginPw">
-          <button type="button" class="pw-toggle" onclick="togglePw('loginPw', this)" title="Prikaži lozinku">👁</button>
+          <button type="button" class="pw-toggle" onclick="togglePw('loginPw', this)">👁</button>
         </div>
       </div>
       <button type="submit" class="btn-add auth-submit">Prijavi se</button>
     </form>
-
-    <!-- REGISTER FORM -->
     <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)" style="display:none">
       <div class="auth-form row-2">
-        <div class="field">
-          <label>Ime <span class="opt">(opcionalno)</span></label>
-          <input type="text" name="firstName" placeholder="Marko" autocomplete="given-name">
-        </div>
-        <div class="field">
-          <label>Prezime <span class="opt">(opcionalno)</span></label>
-          <input type="text" name="lastName" placeholder="Horvat" autocomplete="family-name">
-        </div>
+        <div class="field"><label>Ime <span class="opt">(opcionalno)</span></label><input type="text" name="firstName" placeholder="Marko" autocomplete="given-name"></div>
+        <div class="field"><label>Prezime <span class="opt">(opcionalno)</span></label><input type="text" name="lastName" placeholder="Horvat" autocomplete="family-name"></div>
       </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Lozinka</label>
+      <div class="field"><label>Email</label><input type="email" name="email" placeholder="ti@primjer.hr" required autocomplete="email"></div>
+      <div class="field"><label>Lozinka</label>
         <div class="pw-wrap">
           <input type="password" name="password" placeholder="Najmanje 8 znakova" required autocomplete="new-password" id="regPw" oninput="updatePwReqs(this.value)" minlength="8">
-          <button type="button" class="pw-toggle" onclick="togglePw('regPw', this)" title="Prikaži lozinku">👁</button>
+          <button type="button" class="pw-toggle" onclick="togglePw('regPw', this)">👁</button>
         </div>
         <div class="pw-requirements">
           <div class="pw-req" data-req="length"><span class="pw-icon">·</span><span>Najmanje 8 znakova</span></div>
@@ -433,40 +483,28 @@
           <div class="pw-req" data-req="number"><span class="pw-icon">·</span><span>Sadrži broj</span></div>
         </div>
       </div>
-      <div class="field">
-        <label>Potvrdi lozinku</label>
+      <div class="field"><label>Potvrdi lozinku</label>
         <div class="pw-wrap">
           <input type="password" name="password2" placeholder="Ponovi lozinku" required autocomplete="new-password" id="regPw2" oninput="updatePwMatch()">
-          <button type="button" class="pw-toggle" onclick="togglePw('regPw2', this)" title="Prikaži lozinku">👁</button>
+          <button type="button" class="pw-toggle" onclick="togglePw('regPw2', this)">👁</button>
         </div>
         <div class="pw-requirements">
           <div class="pw-req" data-req="match"><span class="pw-icon">·</span><span>Lozinke se podudaraju</span></div>
         </div>
       </div>
       <div class="auth-form row-2">
-        <div class="field">
-          <label>Datum rođenja <span class="opt">(opcionalno)</span></label>
-          <input type="date" name="birthDate" autocomplete="bday">
-        </div>
-        <div class="field">
-          <label>Telefon <span class="opt">(opcionalno)</span></label>
-          <input type="tel" name="phone" placeholder="+385 91 123 4567" autocomplete="tel">
-        </div>
+        <div class="field"><label>Datum rođenja <span class="opt">(opcionalno)</span></label><input type="date" name="birthDate"></div>
+        <div class="field"><label>Telefon <span class="opt">(opcionalno)</span></label><input type="tel" name="phone" placeholder="+385 91 123 4567"></div>
       </div>
       <button type="submit" class="btn-add auth-submit">Registriraj se</button>
     </form>
-
     <div class="auth-msg" id="authMsg"></div>
-
     <div class="auth-divider">ili</div>
-
     <button class="auth-guest" onclick="continueAsGuest()">Nastavi kao gost →</button>
   </div>
 </div>
 
-<!-- APP -->
 <div id="appWrap" class="wrap" style="display:none">
-
   <header>
     <h1>💰 Moje <span>financije</span></h1>
     <div class="header-right">
@@ -475,29 +513,74 @@
         <b id="yearLbl">2026</b>
         <button onclick="changeYear(1)">›</button>
       </div>
-      <button class="user-btn" onclick="go('settings')" title="Postavke">
-        <span class="u-avatar" id="uAvatar">G</span>
-        <span class="u-name" id="uName">Gost</span>
-        <span class="u-status guest" id="uStatus"></span>
+      <button class="more-btn" id="moreBtn" onclick="go('more')" title="Pretplate i krediti">
+        <span class="more-ico">⚙️</span>
+        <span>Više</span>
       </button>
+      <div class="user-menu" id="userMenu">
+        <button class="user-btn" onclick="toggleUserMenu(event)" id="userBtnMain">
+          <span class="u-avatar" id="uAvatar">G</span>
+          <span class="u-name" id="uName">Gost</span>
+          <span class="u-status guest" id="uStatus"></span>
+          <span class="u-caret">▼</span>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="ud-header">
+            <div class="ud-avatar" id="udAvatar">G</div>
+            <div class="ud-info">
+              <div class="ud-name" id="udName">Gost</div>
+              <div class="ud-email" id="udEmail">gost@lokalno</div>
+            </div>
+            <div class="ud-badge guest" id="udBadge">Gost</div>
+          </div>
+          <div class="ud-section">
+            <div class="ud-section-label">🎨 Tema</div>
+            <div class="ud-theme">
+              <button data-t="light" onclick="setTheme('light')">☀️</button>
+              <button data-t="dark" onclick="setTheme('dark')">🌙</button>
+              <button data-t="system" onclick="setTheme('system')">🌗</button>
+            </div>
+          </div>
+          <div class="ud-section">
+            <div class="ud-section-label">🌐 Jezik</div>
+            <select class="ud-lang-select" disabled>
+              <option>🇭🇷 Hrvatski</option>
+              <option>🇬🇧 English (uskoro)</option>
+            </select>
+          </div>
+          <div class="ud-divider"></div>
+          <button class="ud-item" onclick="openSettingsModal()"><span class="ud-ico">⚙️</span><span>Postavke</span></button>
+          <button class="ud-item danger" onclick="handleLogout()" id="logoutItem"><span class="ud-ico">🚪</span><span id="logoutText">Odjavi se</span></button>
+        </div>
+      </div>
     </div>
   </header>
 
-  <nav class="tabs" id="tabs"></nav>
+  <nav class="tabs-nav" id="tabs"></nav>
   <main id="view"></main>
 
   <footer class="watermark">
     <span class="diamond">✦</span> Daidala Ergasterion <span class="diamond">✦</span>
   </footer>
-
 </div>
 
-<!-- SUPABASE SDK -->
+<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)closeSettingsModal()">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>⚙️ Postavke</h2>
+      <button class="modal-close" onclick="closeSettingsModal()" title="Zatvori">×</button>
+    </div>
+    <div class="modal-body" id="settingsBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 /* =========================================================
-   SUPABASE KONFIGURACIJA — zamijeni svojim vrijednostima
+   SUPABASE KONFIGURACIJA
    ========================================================= */
 const SUPABASE_URL = 'https://vnglhkhpyoxyctyfhdst.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZuZ2xoa2hweW94eWN0eWZoZHN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2MTYxMTQsImV4cCI6MjEwNjE5MjExNH0.zPVh77JoVJ4v8wcFWtWW5KP0POp0AKo-R0MB021rY1Y';
@@ -522,7 +605,7 @@ const LOANS_UI_KEY = 'financije_loans_ui';
 const THEME_KEY = 'financije_theme';
 const GUEST_KEY = 'financije_guest_mode';
 
-/* ================= GLOBALNO STANJE ================= */
+/* ================= GLOBALNO ================= */
 let sbClient = null;
 let currentUser = null;
 let isGuestMode = false;
@@ -531,6 +614,10 @@ let syncStatus = 'idle';
 let saveTimer = null;
 let lastCloudSave = 0;
 let isHydrating = false;
+let monthMenuOpen = false;
+
+// Uvijek počinjemo na tekućem mjesecu (ne pamtimo odabir)
+let selectedMonth = new Date().getMonth();
 
 let state = { year: new Date().getFullYear(), txns: {}, subscriptions: [], loans: [], period: { mode: 'year' } };
 let currentView = 'pregled';
@@ -544,11 +631,11 @@ function applyTheme(){
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', dark ? '#0f1115' : '#f4f6fb');
-  document.querySelectorAll('.theme-seg button').forEach(b=>{
+  document.querySelectorAll('.ud-theme button').forEach(b=>{
     b.classList.toggle('active', b.dataset.t === themePref);
   });
 }
-function setTheme(t){ themePref = t; localStorage.setItem(THEME_KEY, t); applyTheme(); if(currentView === 'settings') render(); }
+function setTheme(t){ themePref = t; localStorage.setItem(THEME_KEY, t); applyTheme(); }
 try{
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ()=>{
     if(themePref === 'system') applyTheme();
@@ -563,43 +650,30 @@ function loadLocal(){
     const raw = localStorage.getItem(LS_KEY);
     if(raw){ const d = JSON.parse(raw); state = Object.assign(defaultState(), d); }
     else { state = defaultState(); }
-  }catch(e){ console.warn(e); state = defaultState(); }
-
+  }catch(e){ state = defaultState(); }
   if(state.loan && !state.loans){
     const newId = 'loan_' + Date.now() + '_' + Math.random().toString(36).slice(2,5);
     const migrated = Object.assign({ id: newId }, state.loan);
     state.loans = [migrated];
     delete state.loan;
-    for(const key in state.txns){
-      for(const t of state.txns[key]) if(t.loanId === 'main') t.loanId = newId;
-    }
+    for(const key in state.txns){ for(const t of state.txns[key]) if(t.loanId === 'main') t.loanId = newId; }
   }
   if(!state.loans) state.loans = [];
   if(!state.period) state.period = { mode: 'year' };
   state.loans.forEach((l, i) => { if(!l.id) l.id = 'loan_' + i + '_' + Date.now(); });
 }
 
-function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){ console.warn(e); } }
+function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
 function save(){ saveLocal(); scheduleCloudSave(); }
 
 /* ================= SUPABASE ================= */
 function initSupabase(){
-  const url = SUPABASE_URL;
-  const key = SUPABASE_ANON_KEY;
-  if(!url || !key || url.includes('OVDJE') || key.includes('OVDJE')){
-    isCloudConfigured = false;
-    return null;
-  }
+  const url = SUPABASE_URL, key = SUPABASE_ANON_KEY;
+  if(!url || !key || url.includes('OVDJE') || key.includes('OVDJE')){ isCloudConfigured = false; return null; }
   try{
     isCloudConfigured = true;
-    return window.supabase.createClient(url, key, {
-      auth: { persistSession: true, autoRefreshToken: true }
-    });
-  }catch(e){
-    console.error('Supabase init failed', e);
-    isCloudConfigured = false;
-    return null;
-  }
+    return window.supabase.createClient(url, key, { auth: { persistSession: true, autoRefreshToken: true } });
+  }catch(e){ console.error(e); isCloudConfigured = false; return null; }
 }
 
 /* ================= CLOUD SYNC ================= */
@@ -619,17 +693,12 @@ async function loadFromCloud(){
     }
     isHydrating = false;
     return false;
-  }catch(e){
-    console.error('Cloud load error', e);
-    isHydrating = false;
-    return false;
-  }
+  }catch(e){ console.error('Cloud load error', e); isHydrating = false; return false; }
 }
 
 function scheduleCloudSave(){
   if(!currentUser || !sbClient || isHydrating) return;
-  syncStatus = 'saving';
-  updateUserBadge();
+  syncStatus = 'saving'; updateUserBadge();
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => { saveToCloud(); }, 1200);
 }
@@ -638,31 +707,35 @@ async function saveToCloud(){
   if(!currentUser || !sbClient) return;
   try{
     const { error } = await sbClient.from('user_data').upsert({
-      user_id: currentUser.id,
-      data: state,
-      updated_at: new Date().toISOString()
+      user_id: currentUser.id, data: state, updated_at: new Date().toISOString()
     }, { onConflict: 'user_id' });
     if(error) throw error;
-    syncStatus = 'synced';
-    lastCloudSave = Date.now();
-    updateUserBadge();
-  }catch(e){
-    console.error('Cloud save error', e);
-    syncStatus = 'error';
-    updateUserBadge();
-  }
+    syncStatus = 'synced'; lastCloudSave = Date.now(); updateUserBadge();
+    if(document.getElementById('settingsModal').classList.contains('open')) renderSettingsBody();
+  }catch(e){ console.error(e); syncStatus = 'error'; updateUserBadge(); }
 }
 
 async function forceSyncNow(){
-  if(!currentUser){ alert('Kao gost ne možeš sinkronizirati. Registriraj se ili prijavi.'); return; }
-  if(!sbClient){ alert('Cloud nije konfiguriran.'); return; }
+  closeUserMenu();
+  if(!currentUser){ toast('Kao gost ne možeš sinkronizirati.', 'error'); return; }
+  if(!sbClient){ toast('Cloud nije konfiguriran.', 'error'); return; }
   syncStatus = 'saving'; updateUserBadge();
   await saveToCloud();
   await loadFromCloud();
   ensureLoanPayments();
   render();
   updateUserBadge();
-  alert('Sinkronizacija završena.');
+  toast('Sinkronizacija završena.', 'success');
+}
+
+/* ================= TOAST ================= */
+let toastTimer = null;
+function toast(msg, type){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show ' + (type || '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = 'toast'; }, 3000);
 }
 
 /* ================= AUTH ================= */
@@ -671,30 +744,19 @@ function switchAuthTab(tab){
   document.getElementById('loginForm').style.display = tab === 'login' ? 'flex' : 'none';
   document.getElementById('registerForm').style.display = tab === 'register' ? 'flex' : 'none';
   const msg = document.getElementById('authMsg');
-  msg.className = 'auth-msg';
-  msg.textContent = '';
+  msg.className = 'auth-msg'; msg.textContent = '';
 }
-
 function authMsg(text, type){
   const msg = document.getElementById('authMsg');
   msg.textContent = text;
   msg.className = 'auth-msg ' + (type || 'error');
 }
-
 function togglePw(id, btn){
   const inp = document.getElementById(id);
   if(inp.type === 'password'){ inp.type = 'text'; btn.textContent = '🙈'; }
   else { inp.type = 'password'; btn.textContent = '👁'; }
 }
-
-function validatePw(pw){
-  return {
-    length: pw.length >= 8,
-    letter: /[a-zA-Z]/.test(pw),
-    number: /\d/.test(pw)
-  };
-}
-
+function validatePw(pw){ return { length: pw.length >= 8, letter: /[a-zA-Z]/.test(pw), number: /\d/.test(pw) }; }
 function updatePwReqs(pw){
   const v = validatePw(pw);
   document.querySelectorAll('#registerForm .pw-req[data-req]').forEach(el => {
@@ -702,70 +764,54 @@ function updatePwReqs(pw){
     if(key === 'match') return;
     el.classList.remove('valid', 'invalid');
     if(pw.length === 0) return;
-    if(v[key]) el.classList.add('valid');
-    else el.classList.add('invalid');
+    if(v[key]) el.classList.add('valid'); else el.classList.add('invalid');
   });
   updatePwMatch();
 }
-
 function updatePwMatch(){
-  const pw = document.getElementById('regPw').value;
-  const pw2 = document.getElementById('regPw2').value;
+  const pw = document.getElementById('regPw').value, pw2 = document.getElementById('regPw2').value;
   const el = document.querySelector('#registerForm .pw-req[data-req="match"]');
   if(!el) return;
   el.classList.remove('valid', 'invalid');
   if(pw2.length === 0) return;
-  if(pw === pw2 && pw.length > 0) el.classList.add('valid');
-  else el.classList.add('invalid');
+  if(pw === pw2 && pw.length > 0) el.classList.add('valid'); else el.classList.add('invalid');
 }
-
 function withTimeout(promise, ms){
   ms = ms || 15000;
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms))
-  ]);
+  return Promise.race([promise, new Promise((_, rej) => setTimeout(() => rej(new Error('Timeout')), ms))]);
 }
-
 function translateAuthError(err){
   const m = ((err && err.message) || String(err)).toLowerCase();
   if(m.includes('invalid login')) return 'Pogrešan email ili lozinka.';
-  if(m.includes('email not confirmed')) return 'Email nije potvrđen. Provjeri inbox (ili isključi potvrdu u Supabase postavkama).';
-  if(m.includes('already registered') || m.includes('already exists') || m.includes('user already')) return 'Ovaj email je već registriran. Prijavi se.';
-  if(m.includes('password should be at least')) return 'Lozinka je prekratka.';
-  if(m.includes('rate limit') || m.includes('for security purposes')) return 'Previše pokušaja. Pričekaj minutu pa pokušaj ponovno.';
-  if(m.includes('timeout')) return 'Server ne odgovara. Provjeri internet vezu.';
-  if(m.includes('failed to fetch') || m.includes('networkerror')) return 'Nema veze sa serverom. Provjeri internet ili je projekt možda pauziran u Supabaseu.';
+  if(m.includes('email not confirmed')) return 'Email nije potvrđen. Provjeri inbox.';
+  if(m.includes('already registered') || m.includes('already exists')) return 'Ovaj email je već registriran. Prijavi se.';
+  if(m.includes('rate limit')) return 'Previše pokušaja. Pričekaj minutu.';
+  if(m.includes('timeout')) return 'Server ne odgovara.';
+  if(m.includes('failed to fetch') || m.includes('networkerror')) return 'Nema veze sa serverom.';
   return (err && err.message) || 'Nepoznata greška.';
 }
 
 async function handleLogin(e){
   e.preventDefault();
-  if(!sbClient){ authMsg('Cloud nije konfiguriran. Koristi gost mode.', 'error'); return; }
+  if(!sbClient){ authMsg('Cloud nije konfiguriran.', 'error'); return; }
   const f = e.target;
-  const email = f.email.value.trim();
-  const password = f.password.value;
+  const email = f.email.value.trim(), password = f.password.value;
   const btn = f.querySelector('button[type="submit"]');
   btn.disabled = true; btn.textContent = 'Prijavljujem...';
   try{
-    const result = await withTimeout(sbClient.auth.signInWithPassword({ email, password }));
-    if(result.error) throw result.error;
-    currentUser = result.data.user;
-    localStorage.removeItem(GUEST_KEY);
-    isGuestMode = false;
+    const r = await withTimeout(sbClient.auth.signInWithPassword({ email, password }));
+    if(r.error) throw r.error;
+    currentUser = r.data.user;
+    localStorage.removeItem(GUEST_KEY); isGuestMode = false;
     await loadFromCloud();
     authMsg('Dobrodošao natrag!', 'success');
     setTimeout(startApp, 400);
-  }catch(err){
-    console.error('Login error:', err);
-    authMsg(translateAuthError(err), 'error');
-    btn.disabled = false; btn.textContent = 'Prijavi se';
-  }
+  }catch(err){ authMsg(translateAuthError(err), 'error'); btn.disabled = false; btn.textContent = 'Prijavi se'; }
 }
 
 async function handleRegister(e){
   e.preventDefault();
-  if(!sbClient){ authMsg('Cloud nije konfiguriran. Koristi gost mode.', 'error'); return; }
+  if(!sbClient){ authMsg('Cloud nije konfiguriran.', 'error'); return; }
   const f = e.target;
   const firstName = f.firstName.value.trim();
   const lastName = f.lastName.value.trim();
@@ -774,83 +820,56 @@ async function handleRegister(e){
   const password2 = f.password2.value;
   const birthDate = f.birthDate.value;
   const phone = f.phone.value.trim();
-
   if(password !== password2){ authMsg('Lozinke se ne podudaraju.', 'error'); return; }
   const pv = validatePw(password);
-  if(!pv.length || !pv.letter || !pv.number){ authMsg('Lozinka ne zadovoljava sve uvjete.', 'error'); return; }
-
+  if(!pv.length || !pv.letter || !pv.number){ authMsg('Lozinka ne zadovoljava uvjete.', 'error'); return; }
   const hasLocal = Object.keys(state.txns || {}).length > 0;
   let shouldMigrate = false;
-  if(hasLocal){
-    shouldMigrate = confirm('Imaš lokalne podatke na ovom uređaju.\n\nŽeliš li ih prenijeti u svoj novi profil?\n\nOK = prenesi\nCancel = kreni od nule');
-  }
-
+  if(hasLocal) shouldMigrate = confirm('Imaš lokalne podatke.\n\nPrenijeti ih u novi profil?');
   const btn = f.querySelector('button[type="submit"]');
   btn.disabled = true; btn.textContent = 'Registriram...';
-
   try{
-    const result = await withTimeout(sbClient.auth.signUp({
+    const r = await withTimeout(sbClient.auth.signUp({
       email, password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-          full_name: (firstName + ' ' + lastName).trim(),
-          birth_date: birthDate,
-          phone: phone
-        }
-      }
+      options: { data: { first_name: firstName, last_name: lastName, full_name: (firstName + ' ' + lastName).trim(), birth_date: birthDate, phone } }
     }));
-    if(result.error) throw result.error;
-
-    const hasSession = result.data.session && result.data.user;
-
-    if(hasSession){
-      currentUser = result.data.user;
-      localStorage.removeItem(GUEST_KEY);
-      isGuestMode = false;
-      if(!shouldMigrate){
-        state = defaultState();
-        saveLocal();
-      }
+    if(r.error) throw r.error;
+    if(r.data.session && r.data.user){
+      currentUser = r.data.user;
+      localStorage.removeItem(GUEST_KEY); isGuestMode = false;
+      if(!shouldMigrate){ state = defaultState(); saveLocal(); }
       await saveToCloud();
-      authMsg('Uspješno! Prijavljen si.', 'success');
+      authMsg('Uspješno!', 'success');
       setTimeout(startApp, 400);
-    } else if(result.data.user){
-      authMsg('Registracija uspješna! 📧 Provjeri email i klikni link za potvrdu, zatim se vrati i prijavi se.\n\n💡 Savjet: u Supabase dashboardu možeš isključiti potvrdu emaila za brže testiranje.', 'info');
+    } else if(r.data.user){
+      authMsg('Registracija uspješna! 📧 Provjeri email za potvrdu, zatim se prijavi.', 'info');
       btn.disabled = false; btn.textContent = 'Registriraj se';
     } else {
-      authMsg('Nešto je pošlo po zlu. Pokušaj ponovno.', 'error');
+      authMsg('Nešto je pošlo po zlu.', 'error');
       btn.disabled = false; btn.textContent = 'Registriraj se';
     }
-  }catch(err){
-    console.error('Register error:', err);
-    authMsg(translateAuthError(err), 'error');
-    btn.disabled = false; btn.textContent = 'Registriraj se';
-  }
+  }catch(err){ authMsg(translateAuthError(err), 'error'); btn.disabled = false; btn.textContent = 'Registriraj se'; }
 }
 
 function continueAsGuest(){
-  isGuestMode = true;
-  currentUser = null;
+  isGuestMode = true; currentUser = null;
   localStorage.setItem(GUEST_KEY, '1');
   loadLocal();
   startApp();
 }
 
 async function handleLogout(){
+  closeUserMenu();
   if(isGuestMode || !currentUser){
-    if(!confirm('Izlaz iz gost moda?\n\nPodaci ostaju na uređaju, ali nećeš biti prijavljen.')) return;
+    if(!confirm('Izlaz iz gost moda?\n\nPodaci ostaju na uređaju.')) return;
     localStorage.removeItem(GUEST_KEY);
     showAuthScreen();
     return;
   }
-  if(!confirm('Odjaviti se?\n\nTvoji podaci ostaju u cloudu. Kad se vratiš, sve će biti tu.')) return;
+  if(!confirm('Odjaviti se?\n\nTvoji podaci ostaju u cloudu.')) return;
   await saveToCloud();
   await sbClient.auth.signOut();
-  currentUser = null;
-  state = defaultState();
-  saveLocal();
+  currentUser = null; state = defaultState(); saveLocal();
   showAuthScreen();
 }
 
@@ -864,8 +883,8 @@ function showAuthScreen(){
   document.getElementById('loadingScreen').style.display = 'none';
   document.getElementById('authScreen').style.display = 'flex';
   document.getElementById('appWrap').style.display = 'none';
+  closeSettingsModal();
   document.getElementById('cloudWarning').style.display = isCloudConfigured ? 'none' : 'block';
-  // Reset forms
   document.getElementById('loginForm').reset();
   document.getElementById('registerForm').reset();
   document.querySelectorAll('#registerForm .pw-req').forEach(el => el.classList.remove('valid','invalid'));
@@ -876,7 +895,9 @@ function startApp(){
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appWrap').style.display = 'block';
   const now = new Date();
-  currentView = (now.getFullYear() === state.year) ? now.getMonth() : 'pregled';
+  // Uvijek otvori na tekućem mjesecu
+  selectedMonth = now.getMonth();
+  currentView = selectedMonth;
   applySubscriptions(now.getFullYear(), now.getMonth());
   ensureLoanPayments();
   updateUserBadge();
@@ -885,16 +906,16 @@ function startApp(){
 
 function getUserDisplayName(){
   if(!currentUser) return 'Gost';
-  const meta = currentUser.user_metadata || {};
-  if(meta.first_name) return meta.first_name;
-  if(meta.full_name) return meta.full_name.split(' ')[0];
+  const m = currentUser.user_metadata || {};
+  if(m.first_name) return m.first_name;
+  if(m.full_name) return m.full_name.split(' ')[0];
   if(currentUser.email) return currentUser.email.split('@')[0];
   return 'Profil';
 }
 function getUserFullName(){
   if(!currentUser) return 'Gost';
-  const meta = currentUser.user_metadata || {};
-  const full = (meta.first_name || '') + ' ' + (meta.last_name || '');
+  const m = currentUser.user_metadata || {};
+  const full = (m.first_name || '') + ' ' + (m.last_name || '');
   if(full.trim()) return full.trim();
   if(currentUser.email) return currentUser.email.split('@')[0];
   return 'Profil';
@@ -904,17 +925,188 @@ function updateUserBadge(){
   const av = document.getElementById('uAvatar');
   const nm = document.getElementById('uName');
   const st = document.getElementById('uStatus');
+  const av2 = document.getElementById('udAvatar');
+  const nm2 = document.getElementById('udName');
+  const em2 = document.getElementById('udEmail');
+  const bd2 = document.getElementById('udBadge');
+  const lo = document.getElementById('logoutText');
   if(!av) return;
   if(currentUser){
-    av.textContent = (getUserDisplayName()[0] || 'U').toUpperCase();
-    nm.textContent = getUserDisplayName();
+    const d = getUserDisplayName();
+    const initial = (d[0] || 'U').toUpperCase();
+    av.textContent = initial; nm.textContent = d;
+    if(av2) av2.textContent = initial;
+    if(nm2) nm2.textContent = getUserFullName();
+    if(em2) em2.textContent = currentUser.email || '';
+    if(bd2){ bd2.textContent = 'Povezan'; bd2.className = 'ud-badge pro'; }
+    if(lo) lo.textContent = 'Odjavi se';
     st.className = 'u-status ' + (syncStatus === 'saving' ? 'saving' : syncStatus === 'error' ? 'error' : 'synced');
-    st.title = syncStatus === 'saving' ? 'Spremam...' : syncStatus === 'error' ? 'Greška' : 'Sinkronizirano';
   } else {
-    av.textContent = 'G';
-    nm.textContent = 'Gost';
+    av.textContent = 'G'; nm.textContent = 'Gost';
+    if(av2) av2.textContent = 'G';
+    if(nm2) nm2.textContent = 'Gost';
+    if(em2) em2.textContent = 'gost@lokalno';
+    if(bd2){ bd2.textContent = 'Gost'; bd2.className = 'ud-badge guest'; }
+    if(lo) lo.textContent = 'Izađi iz gost moda';
     st.className = 'u-status guest';
-    st.title = 'Gost — lokalno';
+  }
+}
+
+function toggleUserMenu(e){
+  if(e) e.stopPropagation();
+  document.getElementById('userMenu').classList.toggle('open');
+}
+function closeUserMenu(){ document.getElementById('userMenu').classList.remove('open'); }
+
+// Month button: ako smo već u mjesecu → otvori/zatvori izbornik; ako nismo → skoči na odabrani mjesec
+function onMonthBtnClick(e){
+  if(e) e.stopPropagation();
+  if(typeof currentView === 'number'){
+    monthMenuOpen = !monthMenuOpen;
+    render();
+  } else {
+    go(selectedMonth);
+  }
+}
+function closeMonthMenu(){
+  if(!monthMenuOpen) return;
+  monthMenuOpen = false;
+  render();
+}
+function pickMonth(i){
+  monthMenuOpen = false;
+  selectedMonth = i;
+  go(i);
+}
+
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.user-menu')) closeUserMenu();
+  if(monthMenuOpen && !e.target.closest('.month-menu')) closeMonthMenu();
+});
+
+function openSettingsModal(){
+  closeUserMenu();
+  renderSettingsBody();
+  document.getElementById('settingsModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSettingsModal(){
+  document.getElementById('settingsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){ closeSettingsModal(); closeUserMenu(); closeMonthMenu(); }
+});
+
+function renderSettingsBody(){
+  const isPro = !!currentUser;
+  const meta = isPro ? (currentUser.user_metadata || {}) : {};
+  const first = meta.first_name || '';
+  const last = meta.last_name || '';
+  const phone = meta.phone || '';
+  const birth = meta.birth_date || '';
+  const email = isPro ? (currentUser.email || '') : 'gost@lokalno';
+
+  const body = document.getElementById('settingsBody');
+  if(!body) return;
+
+  body.innerHTML = `
+    <div class="settings-section">
+      <h3>👤 Osobni podaci ${!isPro ? '<span class="ss-badge">Samo za profil</span>' : ''}</h3>
+      <div class="settings-account">
+        <div class="sa-avatar">${(getUserDisplayName()[0] || 'G').toUpperCase()}</div>
+        <div class="sa-info">
+          <div class="sa-name">${escapeHtml(getUserFullName())}</div>
+          <div class="sa-meta">${escapeHtml(email)}</div>
+        </div>
+        <div class="sa-badge ${isPro?'pro':'guest'}">${isPro ? 'Povezan' : 'Gost'}</div>
+      </div>
+      ${isPro ? `
+        <form class="settings-form" style="margin-top:14px" onsubmit="savePersonalInfo(event)">
+          <div class="field"><label>Ime</label><input name="firstName" value="${escapeHtml(first)}" placeholder="Marko"></div>
+          <div class="field"><label>Prezime</label><input name="lastName" value="${escapeHtml(last)}" placeholder="Horvat"></div>
+          <div class="field"><label>Datum rođenja</label><input type="date" name="birthDate" value="${birth}"></div>
+          <div class="field"><label>Telefon</label><input type="tel" name="phone" value="${escapeHtml(phone)}" placeholder="+385 91 123 4567"></div>
+          <div class="field f-full"><label>Email</label><input value="${escapeHtml(email)}" disabled></div>
+          <div class="f-actions"><button type="submit" class="btn-add">💾 Spremi promjene</button></div>
+        </form>
+      ` : `
+        <div class="placeholder-block" style="margin-top:14px">
+          <span class="pb-icon">🔐</span>
+          <div class="pb-title">Prijavi se za osobne podatke</div>
+          <div style="font-size:12px;margin-top:6px">Kao gost ne možeš uređivati profil.</div>
+          <button class="btn-add" style="margin-top:12px" onclick="closeSettingsModal();handleLogout();">Prijavi se / Registriraj</button>
+        </div>
+      `}
+    </div>
+
+    <div class="settings-section">
+      <h3>🔑 Promjena lozinke <span class="ss-badge">Uskoro</span></h3>
+      <div class="placeholder-block">
+        <span class="pb-icon">🔒</span>
+        <div class="pb-title">Ova opcija stiže uskoro</div>
+        <div style="font-size:12px;margin-top:6px">Za sada lozinku možeš promijeniti preko Supabase dashboarda ili email reset linkom.</div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>☁️ Sinkronizacija</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px;background:var(--surface-2);border-radius:12px">
+        <div>
+          <div style="font-size:13px;font-weight:600">${isPro ? 'Automatska' : 'Nedostupno'}</div>
+          <div style="font-size:11px;color:var(--text-dim);margin-top:2px">
+            ${isPro ? (lastCloudSave ? 'Zadnja: ' + new Date(lastCloudSave).toLocaleString('hr-HR') : 'Spremno') : 'Prijavi se za cloud sync'}
+          </div>
+        </div>
+        ${isPro ? `<button class="btn-add ghost" onclick="forceSyncNow()">🔄 Sinkroniziraj sad</button>` : ''}
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>💾 Podaci</h3>
+      <div class="toolbar" style="justify-content:flex-start;margin-top:0">
+        <button onclick="backupJSON()">💾 Backup (JSON)</button>
+        <button onclick="document.getElementById('imp2').click()">📂 Uvoz (JSON)</button>
+        <button onclick="exportCSV()">⬇ Export CSV</button>
+        <input type="file" id="imp2" accept=".json" style="display:none" onchange="restoreJSON(event)">
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <h3>⚠️ Opasna zona</h3>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.5">
+        Resetiraj sve podatke i kreni od nule. Ovo <b>trajno briše</b> sve transakcije, pretplate, kredite i postavke.${isPro ? ' Briše i podatke iz clouda.' : ''}
+        <b>Prvo napravi Backup!</b>
+      </p>
+      <button class="btn-add red" onclick="resetAll()">🚨 Resetiraj sve podatke</button>
+    </div>
+  `;
+}
+
+async function savePersonalInfo(e){
+  e.preventDefault();
+  if(!currentUser || !sbClient){ toast('Nisi prijavljen.', 'error'); return; }
+  const f = e.target;
+  const data = {
+    first_name: f.firstName.value.trim(),
+    last_name: f.lastName.value.trim(),
+    full_name: (f.firstName.value.trim() + ' ' + f.lastName.value.trim()).trim(),
+    birth_date: f.birthDate.value,
+    phone: f.phone.value.trim()
+  };
+  const btn = f.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'Spremam...';
+  try{
+    const { data: upd, error } = await sbClient.auth.updateUser({ data });
+    if(error) throw error;
+    if(upd && upd.user) currentUser = upd.user;
+    updateUserBadge();
+    toast('Podaci spremljeni.', 'success');
+    renderSettingsBody();
+  }catch(err){
+    console.error(err);
+    toast('Greška: ' + (err.message || 'Nepoznato'), 'error');
+    btn.disabled = false; btn.textContent = '💾 Spremi promjene';
   }
 }
 
@@ -1147,18 +1339,31 @@ function render(){
   document.getElementById('yearLbl').textContent = state.year;
 
   const yearWrap = document.getElementById('yearWrap');
-  const hideYear = currentView === 'pregled' && state.period && state.period.mode !== 'year';
+  const hideYear = currentView === 'more' || (currentView === 'pregled' && state.period && state.period.mode !== 'year');
   yearWrap.style.display = hideYear ? 'none' : '';
 
+  const moreBtn = document.getElementById('moreBtn');
+  moreBtn.classList.toggle('active', currentView === 'more');
+
+  // --- NAV: Pregled + Month dropdown ---
   const tabs = document.getElementById('tabs');
-  let html = `<button class="tab ${currentView==='pregled'?'active':''}" onclick="go('pregled')">📊 Pregled</button>`;
-  MONTHS.forEach((m,i)=>{
-    html += `<button class="tab ${currentView===i?'active':''}" onclick="go(${i})">${m}</button>`;
-  });
-  tabs.innerHTML = html;
+  const isMonthActive = typeof currentView === 'number';
+  tabs.innerHTML = `
+    <button class="nav-btn ${currentView==='pregled'?'active':''}" onclick="go('pregled')">
+      <span>📊</span><span>Pregled</span>
+    </button>
+    <div class="month-menu ${monthMenuOpen?'open':''}" id="monthMenu">
+      <button class="nav-btn ${isMonthActive?'active':''}" onclick="onMonthBtnClick(event)">
+        <span>📅</span><span>${MONTHS[selectedMonth]}</span><span class="caret">▼</span>
+      </button>
+      <div class="month-list">
+        ${MONTHS.map((name, i) => `<button class="month-item ${currentView===i?'active':''}" onclick="pickMonth(${i})">${name}</button>`).join('')}
+      </div>
+    </div>
+  `;
 
   if(currentView === 'pregled') document.getElementById('view').innerHTML = renderOverview();
-  else if(currentView === 'settings') document.getElementById('view').innerHTML = renderSettings();
+  else if(currentView === 'more') document.getElementById('view').innerHTML = renderMore();
   else document.getElementById('view').innerHTML = renderMonth(currentView);
 }
 
@@ -1251,9 +1456,7 @@ function renderLoanStatsPanel(){
     </div>`;
 }
 
-function getLoansUI(){
-  try{ return JSON.parse(localStorage.getItem(LOANS_UI_KEY) || '{}'); }catch(e){ return {}; }
-}
+function getLoansUI(){ try{ return JSON.parse(localStorage.getItem(LOANS_UI_KEY) || '{}'); }catch(e){ return {}; } }
 function isLoanCollapsed(id){
   const ui = getLoansUI();
   return ui[id] === undefined ? true : !!ui[id];
@@ -1332,7 +1535,7 @@ function renderLoanPanel(){
   if(loans.length === 0){
     return `<div class="panel loan-panel">
       <h2>🏦 Krediti</h2>
-      <div class="empty">Nema postavljenih kredita. <a href="#" onclick="go('settings');return false;" style="color:var(--primary);font-weight:600">Dodaj u postavkama →</a></div>
+      <div class="empty">Nema postavljenih kredita. <a href="#" onclick="go('more');return false;" style="color:var(--primary);font-weight:600">Dodaj u „Više" →</a></div>
     </div>`;
   }
   const totalRemaining = loans.reduce((s, l) => s + (l.remaining || 0), 0);
@@ -1526,19 +1729,19 @@ function renderMonth(m){
       <div class="quick-grid">
         <div class="quick-card inc">
           <div class="qc-head"><span>💰 Plaća</span><span class="qc-tag">Prihod</span></div>
-          <div class="qc-row"><input id="q_placa" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Plaća','q_placa')}"><button type="button" onclick="quickAdd('prihod','Plaća','q_placa')">Dodaj</button></div>
+          <div class="qc-row"><input id="q_placa" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Plaća','q_placa')}"><button type="button" onclick="quickAdd('prihod','Plaća','q_placa')">Dodaj</button></div>
         </div>
         <div class="quick-card inc">
           <div class="qc-head"><span>🎁 Manča</span><span class="qc-tag">Prihod</span></div>
-          <div class="qc-row"><input id="q_manca" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Manča','q_manca')}"><button type="button" onclick="quickAdd('prihod','Manča','q_manca')">Dodaj</button></div>
+          <div class="qc-row"><input id="q_manca" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('prihod','Manča','q_manca')}"><button type="button" onclick="quickAdd('prihod','Manča','q_manca')">Dodaj</button></div>
         </div>
         <div class="quick-card exp">
           <div class="qc-head"><span>⛽ Gorivo</span><span class="qc-tag">Rashod</span></div>
-          <div class="qc-row"><input id="q_gorivo" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Gorivo','q_gorivo')}"><button type="button" onclick="quickAdd('rashod','Gorivo','q_gorivo')">Dodaj</button></div>
+          <div class="qc-row"><input id="q_gorivo" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Gorivo','q_gorivo')}"><button type="button" onclick="quickAdd('rashod','Gorivo','q_gorivo')">Dodaj</button></div>
         </div>
         <div class="quick-card sav">
           <div class="qc-head"><span>🐖 Štednja</span><span class="qc-tag">Sa strane</span></div>
-          <div class="qc-row"><input id="q_stednja" inputmode="decimal" placeholder="0,00" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Štednja','q_stednja')}"><button type="button" onclick="quickAdd('rashod','Štednja','q_stednja')">Dodaj</button></div>
+          <div class="qc-row"><input id="q_stednja" inputmode="decimal" placeholder="0,00" onkeydown="if(event.key==='Enter'){event.preventDefault();quickAdd('rashod','Štednja','q_stednja')}"><button type="button" onclick="quickAdd('rashod','Štednja','q_stednja')">Dodaj</button></div>
           <div class="qc-note">Rashod s plaće, ali akumulira se u „Štednja ukupno".</div>
         </div>
       </div>
@@ -1570,11 +1773,11 @@ function renderMonth(m){
     </div>`;
 }
 
-/* ================= SETTINGS ================= */
-function renderSettings(){
-  const displayName = getUserFullName();
-  const email = currentUser ? (currentUser.email || '') : 'Gost — lokalno';
-  const accountBadge = currentUser ? 'Povezan' : 'Gost';
+function renderMore(){
+  const loans = getLoans();
+  const editingId = window._editingLoanId;
+  const editingLoan = (editingId && editingId !== 'new') ? getLoan(editingId) : null;
+  const showLoanForm = editingId !== undefined && editingId !== null;
 
   let subList = '';
   if(state.subscriptions.length === 0){
@@ -1594,10 +1797,6 @@ function renderSettings(){
     });
   }
 
-  const loans = getLoans();
-  const editingId = window._editingLoanId;
-  const editingLoan = (editingId && editingId !== 'new') ? getLoan(editingId) : null;
-  const showLoanForm = editingId !== undefined && editingId !== null;
   let loansListHtml = '';
   if(loans.length === 0){
     loansListHtml = '<div class="empty">Nema dodanih kredita.</div>';
@@ -1637,77 +1836,14 @@ function renderSettings(){
           <input type="checkbox" name="autoMonthly" ${(!L||L.autoMonthly)?'checked':''} id="autoM">
           <label for="autoM" style="padding:0;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text-muted);font-weight:500;cursor:pointer">Automatski upiši redovnu ratu svaki mjesec</label>
         </div>
-        <div class="field f-wide">
-          <div class="hint">💡 Ako ostaviš prazno „Ukupno rata" i „Preostalo rata", izračunat će se iz <b>preostalog duga ÷ mjesečne rate</b>.</div>
-        </div>
+        <div class="field f-wide"><div class="hint">💡 Prazna polja „Ukupno/Preostalo rata" računaju se iz <b>preostalog duga ÷ mjesečne rate</b>.</div></div>
         <div class="field f-btn"><label>&nbsp;</label><button class="btn-add" type="submit">${L?'Ažuriraj':'Dodaj'}</button></div>
       </form>
       <button class="btn-add ghost" style="margin-top:10px" onclick="cancelLoanEdit()">Otkaži</button>
     `;
   }
 
-  const themeSeg = `
-    <div class="theme-seg">
-      <button data-t="light" onclick="setTheme('light')" class="${themePref==='light'?'active':''}"><span>☀️</span><span class="lbl">Svijetla</span></button>
-      <button data-t="dark" onclick="setTheme('dark')" class="${themePref==='dark'?'active':''}"><span>🌙</span><span class="lbl">Tamna</span></button>
-      <button data-t="system" onclick="setTheme('system')" class="${themePref==='system'?'active':''}"><span>🌗</span><span class="lbl">Sustav</span></button>
-    </div>`;
-
   return `
-    <div class="panel">
-      <h2>👤 Račun</h2>
-      <div class="settings-account">
-        <div class="sa-avatar">${(getUserDisplayName()[0] || 'G').toUpperCase()}</div>
-        <div class="sa-info">
-          <div class="sa-name">${escapeHtml(displayName)}</div>
-          <div class="sa-meta">${escapeHtml(email)}</div>
-        </div>
-        <div class="sa-badge ${currentUser?'pro':'guest'}">${accountBadge}</div>
-      </div>
-      <div class="settings-row">
-        <div>
-          <div class="sr-label">☁️ Sinkronizacija</div>
-          <div class="sr-desc">${currentUser ? (lastCloudSave ? 'Zadnja: ' + new Date(lastCloudSave).toLocaleString('hr-HR') : 'Spremno za sinkronizaciju') : 'Nedostupno u gost modu'}</div>
-        </div>
-        <div class="sr-ctrl">
-          ${currentUser
-            ? `<button class="btn-add ghost" onclick="forceSyncNow()">🔄 Sinkroniziraj</button>`
-            : `<button class="btn-add" onclick="handleLogout()">🔐 Prijavi se</button>`}
-        </div>
-      </div>
-      ${currentUser ? `
-      <div class="settings-row">
-        <div>
-          <div class="sr-label">🚪 Odjava</div>
-          <div class="sr-desc">Podaci ostaju u cloudu</div>
-        </div>
-        <div class="sr-ctrl"><button class="btn-add ghost" onclick="handleLogout()">Odjavi se</button></div>
-      </div>` : ''}
-    </div>
-
-    <div class="panel">
-      <h2>⚙️ Opće postavke</h2>
-      <div class="settings-row">
-        <div>
-          <div class="sr-label">🎨 Tema prikaza</div>
-          <div class="sr-desc">Svijetla, tamna ili prema sustavu</div>
-        </div>
-        <div class="sr-ctrl">${themeSeg}</div>
-      </div>
-      <div class="settings-row">
-        <div>
-          <div class="sr-label">🌐 Jezik</div>
-          <div class="sr-desc">Jezik sučelja (više jezika uskoro)</div>
-        </div>
-        <div class="sr-ctrl">
-          <select class="lang-select" disabled>
-            <option>🇭🇷 Hrvatski</option>
-            <option>🇬🇧 English (uskoro)</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
     <div class="panel">
       <h2>🔁 Ponavljajuće pretplate</h2>
       <p style="font-size:12px;color:var(--text-dim);margin-bottom:14px;line-height:1.5">
@@ -1740,35 +1876,18 @@ function renderSettings(){
       <div style="margin-bottom:12px">${loansListHtml}</div>
       ${!showLoanForm ? `<button class="btn-add" onclick="addNewLoan()">+ Dodaj kredit</button>` : ''}
       ${lf}
-    </div>
-
-    <div class="panel">
-      <h2>💾 Podaci</h2>
-      <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;line-height:1.5">
-        Backup je koristan kao sigurnosna kopija ili za prijenos na drugi račun.
-      </p>
-      <div class="toolbar" style="justify-content:flex-start">
-        <button onclick="backupJSON()">💾 Backup (JSON)</button>
-        <button onclick="document.getElementById('imp2').click()">📂 Uvoz (JSON)</button>
-        <button onclick="exportCSV()">⬇ Export CSV</button>
-        <input type="file" id="imp2" accept=".json" style="display:none" onchange="restoreJSON(event)">
-      </div>
-    </div>
-
-    <div class="panel danger-zone">
-      <h2>⚠️ Opasna zona</h2>
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.5">
-        Resetiraj sve podatke i kreni od nule. Ovo <b>trajno briše</b> sve transakcije, pretplate, kredite i postavke.${currentUser ? ' Briše i podatke iz clouda.' : ''}
-        <b>Prvo napravi Backup!</b>
-      </p>
-      <button class="btn-add red" onclick="resetAll()">🚨 Resetiraj sve podatke</button>
     </div>`;
 }
 
 /* ================= AKCIJE ================= */
 function go(v){
   currentView = v;
+  if(typeof v === 'number'){
+    selectedMonth = v;
+  }
   window._editingLoanId = undefined;
+  monthMenuOpen = false;
+  closeUserMenu();
   ensureLoanPayments();
   render();
   window.scrollTo({top:0,behavior:'smooth'});
@@ -1801,14 +1920,7 @@ function addTxn(e,m){
   const amount = parseAmount(f.amount.value);
   if(!amount){ f.amount.focus(); return; }
   const arr = getTx(state.year,m);
-  arr.push({
-    id: uid(),
-    date: f.date.value || defaultDate(m),
-    desc: f.desc.value.trim(),
-    amount,
-    category: f.category.value,
-    type: formType
-  });
+  arr.push({ id: uid(), date: f.date.value || defaultDate(m), desc: f.desc.value.trim(), amount, category: f.category.value, type: formType });
   setTx(state.year,m,arr);
   if(formType === 'prihod'){
     ensureLoanPayments();
@@ -1828,7 +1940,6 @@ function delTxn(id){
   render();
 }
 
-/* Pretplate */
 function addSub(e){
   e.preventDefault();
   const f = e.target;
@@ -1844,7 +1955,7 @@ function addSub(e){
   save(); render();
 }
 function delSub(id){
-  if(!confirm('Obrisati ovu pretplatu? (Postojeće transakcije ostaju.)')) return;
+  if(!confirm('Obrisati ovu pretplatu?')) return;
   state.subscriptions = state.subscriptions.filter(s=>s.id!==id);
   save(); render();
 }
@@ -1855,7 +1966,6 @@ function toggleSub(id){
   save(); render();
 }
 
-/* Krediti */
 function addNewLoan(){ window._editingLoanId = 'new'; render(); }
 function editLoan(id){ window._editingLoanId = id; render(); }
 function cancelLoanEdit(){ window._editingLoanId = undefined; render(); }
@@ -1883,18 +1993,15 @@ function saveLoan(e){
   loan.installmentsRemaining = Math.max(0, remI);
   loan.nextPaymentDate = nextDate;
   loan.autoMonthly = f.autoMonthly.checked;
-  delete loan.startDate;
-  delete loan.appliedMonths;
+  delete loan.startDate; delete loan.appliedMonths;
   window._editingLoanId = undefined;
-  save();
-  ensureLoanPayments();
-  render();
+  save(); ensureLoanPayments(); render();
 }
 
 function clearLoan(id){
   const loan = getLoan(id);
   if(!loan) return;
-  if(!confirm(`Obrisati kredit „${loan.name}"?\n\nPostojeće transakcije ostaju.`)) return;
+  if(!confirm(`Obrisati kredit „${loan.name}"?`)) return;
   state.loans = state.loans.filter(l => l.id !== id);
   const ui = getLoansUI();
   delete ui[id];
@@ -1931,7 +2038,7 @@ function undoRegularPayment(loanId){
   if(!existing){ alert('Nema uplaćene rate za ovaj mjesec.'); return; }
   const now = new Date();
   const monthName = MONTHS[now.getMonth()];
-  if(!confirm(`Poništiti uplatu redovne rate za ${monthName}?\n\nIznos: ${eur(existing.amount)}\n• Dug: ${eur(L.remaining + existing.amount)}\n• Sljedeća: ${L.nextPaymentDate ? fmtMonthHR(subMonth(L.nextPaymentDate)) : '—'}`)) return;
+  if(!confirm(`Poništiti uplatu redovne rate za ${monthName}?\n\nIznos: ${eur(existing.amount)}\n• Dug: ${eur(L.remaining + existing.amount)}`)) return;
   const ym = mKey(now.getFullYear(), now.getMonth());
   state.txns[ym] = (state.txns[ym] || []).filter(t => t.id !== existing.id);
   L.remaining = (L.remaining || 0) + existing.amount;
@@ -1961,24 +2068,23 @@ function payExtra(loanId){
   save(); render();
 }
 
-/* Reset */
 function resetAll(){
   const extra = currentUser ? '\n• Podatke iz clouda' : '';
   if(!confirm(`⚠️ PAŽNJA!\n\nOvo će trajno obrisati SVE podatke:\n• Sve transakcije\n• Sve pretplate\n• Sve kredite\n• Sve postavke${extra}\n\nJesi li siguran?`)) return;
   if(!confirm('JESI LI POTPUNO SIGURAN?\n\nOva radnja se NE MOŽE poništiti.')) return;
   const t = prompt('Za konačnu potvrdu upiši velikim slovima: OBRIŠI');
-  if(t !== 'OBRIŠI'){ alert('Nisi upisao ispravnu riječ. Reset otkazan.'); return; }
+  if(t !== 'OBRIŠI'){ alert('Nisi upisao ispravnu riječ.'); return; }
   localStorage.removeItem(LS_KEY);
   localStorage.removeItem(LOANS_UI_KEY);
   state = defaultState();
   save();
+  closeSettingsModal();
   currentView = 'pregled';
   window._editingLoanId = undefined;
   render();
-  alert('Svi podaci su obrisani.');
+  toast('Svi podaci su obrisani.', 'success');
 }
 
-/* Export / Import */
 function exportCSV(){
   let csv = 'Datum,Mjesec,Tip,Kategorija,Opis,Iznos (EUR)\n';
   MONTHS.forEach((name,i)=>{
@@ -2022,6 +2128,7 @@ function restoreJSON(e){
         if(!state.period) state.period = { mode: 'year' };
         state.loans.forEach((l, i) => { if(!l.id) l.id = 'loan_' + i + '_' + Date.now(); });
         save(); render();
+        if(document.getElementById('settingsModal').classList.contains('open')) renderSettingsBody();
       }
     }catch(err){ alert('Greška: '+err.message); }
   };
@@ -2034,7 +2141,6 @@ async function boot(){
   try{
     applyTheme();
     showLoading();
-
     sbClient = initSupabase();
     loadLocal();
 
@@ -2064,7 +2170,7 @@ async function boot(){
     showAuthScreen();
   }catch(err){
     console.error('BOOT FATAL:', err);
-    document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:#fff;background:#111;min-height:100vh"><h2 style="color:#f87171">Greška pri pokretanju</h2><pre style="background:#222;padding:20px;border-radius:8px;overflow:auto;margin-top:20px">' + (err && err.stack ? err.stack : String(err)) + '</pre></div>';
+    document.body.innerHTML = '<div style="padding:40px;font-family:monospace;color:#fff;background:#111;min-height:100vh"><h2 style="color:#f87171">Greška</h2><pre style="background:#222;padding:20px;border-radius:8px;overflow:auto;margin-top:20px">' + (err && err.stack ? err.stack : String(err)) + '</pre></div>';
   }
 }
 
